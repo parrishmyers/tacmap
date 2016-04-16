@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D90DE4541CBA9EBE0072422C /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D90DE4521CBA9EBE0072422C /* DT_Utils.cpp */; };
 		D97992A71CB740A6001DC0B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97992A61CB740A6001DC0B1 /* main.cpp */; };
+		D97992B41CB740EE001DC0B1 /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97992AD1CB740EE001DC0B1 /* DT_DAG.cpp */; };
+		D97992B51CB740EE001DC0B1 /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97992AF1CB740EE001DC0B1 /* DelaunayTriangulation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +26,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D90DE4511CBA98A40072422C /* DT_Circle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DT_Circle.h; sourceTree = "<group>"; };
+		D90DE4521CBA9EBE0072422C /* DT_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DT_Utils.cpp; sourceTree = "<group>"; };
+		D90DE4531CBA9EBE0072422C /* DT_Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Utils.h; sourceTree = "<group>"; };
+		D91A39591CC15503009BA3D4 /* DT_Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DT_Vector.h; sourceTree = "<group>"; };
 		D97992A31CB740A6001DC0B1 /* tacmap_cmd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tacmap_cmd; sourceTree = BUILT_PRODUCTS_DIR; };
 		D97992A61CB740A6001DC0B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D97992AD1CB740EE001DC0B1 /* DT_DAG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DT_DAG.cpp; sourceTree = "<group>"; };
+		D97992AE1CB740EE001DC0B1 /* DT_DAG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_DAG.h; sourceTree = "<group>"; };
+		D97992AF1CB740EE001DC0B1 /* DelaunayTriangulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DelaunayTriangulation.cpp; sourceTree = "<group>"; };
+		D97992B01CB740EE001DC0B1 /* DelaunayTriangulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation.h; sourceTree = "<group>"; };
+		D97992B11CB740EE001DC0B1 /* DT_Pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Pool.h; sourceTree = "<group>"; };
+		D97992B21CB740EE001DC0B1 /* DT_Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Triangle.h; sourceTree = "<group>"; };
+		D97992B31CB740EE001DC0B1 /* DT_Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vertex.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +71,17 @@
 		D97992A51CB740A6001DC0B1 /* tacmap_cmd */ = {
 			isa = PBXGroup;
 			children = (
+				D97992AF1CB740EE001DC0B1 /* DelaunayTriangulation.cpp */,
+				D97992B01CB740EE001DC0B1 /* DelaunayTriangulation.h */,
+				D90DE4511CBA98A40072422C /* DT_Circle.h */,
+				D97992AD1CB740EE001DC0B1 /* DT_DAG.cpp */,
+				D97992AE1CB740EE001DC0B1 /* DT_DAG.h */,
+				D97992B11CB740EE001DC0B1 /* DT_Pool.h */,
+				D97992B21CB740EE001DC0B1 /* DT_Triangle.h */,
+				D90DE4521CBA9EBE0072422C /* DT_Utils.cpp */,
+				D90DE4531CBA9EBE0072422C /* DT_Utils.h */,
+				D91A39591CC15503009BA3D4 /* DT_Vector.h */,
+				D97992B31CB740EE001DC0B1 /* DT_Vertex.h */,
 				D97992A61CB740A6001DC0B1 /* main.cpp */,
 			);
 			path = tacmap_cmd;
@@ -118,6 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D97992B51CB740EE001DC0B1 /* DelaunayTriangulation.cpp in Sources */,
+				D90DE4541CBA9EBE0072422C /* DT_Utils.cpp in Sources */,
+				D97992B41CB740EE001DC0B1 /* DT_DAG.cpp in Sources */,
 				D97992A71CB740A6001DC0B1 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +267,7 @@
 				D97992AC1CB740A6001DC0B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

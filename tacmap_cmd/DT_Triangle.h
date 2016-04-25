@@ -1,5 +1,8 @@
 #pragma once
 
+#include "DT_Vertex.h"
+#include "DT_Vector.h"
+
 class Triangle {
 public:
 	enum Corner {
@@ -30,17 +33,10 @@ public:
 		child[2] = nullptr;
 	}
 	Triangle(Vertex &i, Vertex &j, Vertex &k) {
-		data[I] = i;
-		data[J] = j;
-		data[K] = k;
-		pts = 3;
-		valid = true;
-		child[0] = nullptr;
-		child[1] = nullptr;
-		child[2] = nullptr;
-		nChild = 0;
+        setVertices(i, j, k);
 	}
 	~Triangle() {}
+    /*
 	void setVertexI(Vertex& a) {
 		data[I] = a;
 		incPts();
@@ -54,6 +50,18 @@ public:
 		data[K] = a;
 		incPts();
 	}
+    */
+    void setVertices(Vertex &i, Vertex &j, Vertex &k) {
+        data[I] = i;
+        data[J] = j;
+        data[K] = k;
+        pts = 3;
+        valid = true;
+        child[0] = nullptr;
+        child[1] = nullptr;
+        child[2] = nullptr;
+        nChild = 0;
+    }
 
 	Vertex & getVertexI() {
 		return data[I];
@@ -66,8 +74,20 @@ public:
 	Vertex & getVertexK() {
 		return data[K];
 	}
+    
+    Vector  getEdgeIJ() {
+        return Vector(data[I],data[J]);
+    }
 
-	bool isValid() const {
+    Vector  getEdgeJK() {
+        return Vector(data[J],data[K]);
+    }
+    
+    Vector  getEdgeKI() {
+        return Vector(data[K],data[I]);
+    }
+    
+    bool isValid() const {
 		if (pts >= 3 && valid == true)
 			return true;
 		else
@@ -98,6 +118,16 @@ public:
 			return nullptr;
 		}
 	}
+    
+    bool containsPoint(Vertex &p) {
+        Vertex i = getVertexI();
+        Vertex j = getVertexJ();
+        Vertex k = getVertexK();
+        if (p == i || p == j || p == k)
+            return true;
+        else
+            return false;
+    }
 
 	friend bool isContained(Triangle &t, Vertex &p);
 };

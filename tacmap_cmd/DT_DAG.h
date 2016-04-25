@@ -16,7 +16,9 @@ public:
     DAG();
     ~DAG();
 	Triangle * find(Vertex & p);
-	void divide(Triangle &a);
+    Triangle * findAdjacent(Vector & e);
+	void divide(Triangle &a, Vertex &pr);
+    void divideOnEdge(Triangle &a, Vector &e, Vertex &pr);
 	Triangle * get();
     void removeTriangleContainingPoint(Vertex & a);
 };

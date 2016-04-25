@@ -22,9 +22,7 @@ void DelaunayTriangulation<Size>::init()
     omg2.set( 0.0, 3.0 * M);
     omg3.set(-3.0 * M, -3.0 * M);
     Triangle itri = dag.get();
-    itri.setVertexI(omg1);
-    itri.setVertexJ(omg1);
-    itri.setVertexK(omg1);
+    itri.setVertices(omg1, omg2, omg3);
 }
 
 template<int Size>
@@ -69,7 +67,20 @@ void DelaunayTriangulation<Size>::compute()
         Vertex pr = getPoint(i);
         Triangle * t = dag.find(pr);
         if (nullptr != t) {
-            if (onEdge) {
+            Vector ij = t->getEdgeIJ();
+            Vector jk = t->getEdgeJK();
+            Vector ki = t->getEdgeKI();
+            
+            bool onEdgeIJ = ij.onEdge(pr);
+            bool onEdgeJK = jk.onEdge(pr);
+            bool onEdgeKI = ki.onEdge(pr);
+            
+            if (onEdgeIJ) {
+                
+            } else if (onEdgeJK) {
+                
+            } else if (onEdgeKI) {
+                
             } else { // On interier
                 
             }

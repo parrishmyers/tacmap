@@ -6,21 +6,39 @@
 //  Copyright © 2016 Parrish Myers. All rights reserved.
 //
 
+#pragma once
+
 #ifndef DT_Vector_h
 #define DT_Vector_h
 
 #include <cmath>
+#include <string>
 #include "DT_Vertex.h"
 
 class Vector {
 public:
-    const double THRESH = 0.001;
+    const double THRESH;
 private:
     Vertex data[2];
 public:
-    Vector(Vertex const& a,Vertex const& b) {
+    Vector(Vertex const& a,Vertex const& b, double thresh = 0.1) : THRESH(thresh) {
         data[0] = a;
         data[1] = b;
+    }
+    
+    Vertex & getVertex1() {
+        return data[0];
+    }
+    
+    Vertex & getVertex2() {
+        return data[1];
+    }
+    
+    std::string str() {
+        std::string s = "Vector[";
+        s += data[0].str() + " => ";
+        s += data[1].str() + "]";
+        return s;
     }
     
     bool onEdge(Vertex const& pr) {
@@ -43,26 +61,25 @@ public:
     }
     
     double distance2Point(Vertex const& pr) {
-        double ax = data[0].getX();
-        double ay = data[0].getY();
-        double px = pr.getX();
-        double py = pr.getY();
-        double nx = data[1].getX() - ax;
-        double ny = data[1].getY() - ay;
+        double nx = data[1].getX() - data[0].getX();
+        double ny = data[1].getY() - data[0].getY();
         
-        double apx = ax - px;
-        double apy = ay - py;
+        double nmag = sqrt(nx * nx + ny * ny);
         
-        double dapn = apx * nx + apy * ny;
+        double px = pr.getX() - data[0].getX();
+        double py = pr.getY() - data[0].getY();
         
-        double norm_n = sqrt(nx * nx + ny * ny);
-        double nxhat = nx / norm_n;
-        double nyhat = ny / norm_n;
+        //double pmag = sqrt(px * px + py * py);
         
-        double ppx = apx - dapn * nxhat;
-        double ppy = apy - dapn * nyhat;
+        double dnp = nx * px + ny * py; // dot(n,p)
         
-        return sqrt( ppx * ppx + ppy * ppy);
+        double dnpx = nx * dnp / (nmag * nmag);
+        double dnpy = ny * dnp / (nmag * nmag);
+        
+        double perx = dnpx - px;
+        double pery = dnpy - py;
+        
+        return sqrt(perx * perx + pery * pery);
     }
 };
 

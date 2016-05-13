@@ -129,5 +129,23 @@ public:
             return false;
     }
 
-	friend bool isContained(Triangle &t, Vertex &p);
+    bool containsEdge(Vector &v) {
+        Vertex p[3] = {getVertexI(),getVertexJ(),getVertexK()};
+        
+        Vertex p1 = v.getVertex1();
+        Vertex p2 = v.getVertex2();
+        
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (i == j) continue;
+                if (p[i] == p1 && p[j] == p2)
+                    return true;
+                else if (p[i] == p2 && p[j] == p1)
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    friend bool isContained(Triangle &t, Vertex &p);
 };

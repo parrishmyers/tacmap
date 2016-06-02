@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D9C864221CFC9998007EF874 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */; };
+		D9C864241CFC9A1C007EF874 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C864231CFC9A1C007EF874 /* libboost_system.dylib */; };
+		D9E0B9EC1CF9F8C80091133E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9EB1CF9F8C80091133E /* main.cpp */; };
+		D9E0B9FE1CF9F9380091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
+		D9E0B9FF1CF9F9380091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
+		D9E0BA001CF9F9380091133E /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */; };
+		D9E0BA2A1CFA3D0B0091133E /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA171CFA35670091133E /* libgtest_main.a */; };
+		D9E0BA2B1CFA3D0B0091133E /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA181CFA35670091133E /* libgtest.a */; };
+		D9E0BA2C1CFA3D1D0091133E /* DelaunayTriangulationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */; };
+		D9E0BA2D1CFA3D220091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
+		D9E0BA2E1CFA3D270091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
+		D9E0BA2F1CFA3D2C0091133E /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */; };
+		D9E0BA311CFB54C00091133E /* libgdal.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA301CFB54C00091133E /* libgdal.1.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D9E0B9E61CF9F8C80091133E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D9E0BA211CFA3CC50091133E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /opt/homebrew/Cellar/boost/1.58.0/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
+		D9C864231CFC9A1C007EF874 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = /opt/homebrew/Cellar/boost/1.58.0/lib/libboost_system.dylib; sourceTree = "<absolute>"; };
+		D9E0B9E81CF9F8C80091133E /* tacmap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tacmap; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9E0B9EB1CF9F8C80091133E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DelaunayTriangulation.cpp; sourceTree = "<group>"; };
+		D9E0B9F31CF9F9380091133E /* DelaunayTriangulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation.h; sourceTree = "<group>"; };
+		D9E0B9F41CF9F9380091133E /* DT_Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Circle.h; sourceTree = "<group>"; };
+		D9E0B9F51CF9F9380091133E /* DT_Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Constants.h; sourceTree = "<group>"; };
+		D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DT_DAG.cpp; sourceTree = "<group>"; };
+		D9E0B9F71CF9F9380091133E /* DT_DAG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_DAG.h; sourceTree = "<group>"; };
+		D9E0B9F81CF9F9380091133E /* DT_Pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Pool.h; sourceTree = "<group>"; };
+		D9E0B9F91CF9F9380091133E /* DT_Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Triangle.h; sourceTree = "<group>"; };
+		D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DT_Utils.cpp; sourceTree = "<group>"; };
+		D9E0B9FB1CF9F9380091133E /* DT_Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Utils.h; sourceTree = "<group>"; };
+		D9E0B9FC1CF9F9380091133E /* DT_Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vector.h; sourceTree = "<group>"; };
+		D9E0B9FD1CF9F9380091133E /* DT_Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vertex.h; sourceTree = "<group>"; };
+		D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DelaunayTriangulationTest.cpp; path = GTests/DelaunayTriangulationTest.cpp; sourceTree = "<group>"; };
+		D9E0BA171CFA35670091133E /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = ThirdParty/googletest/googletest/libgtest_main.a; sourceTree = "<group>"; };
+		D9E0BA181CFA35670091133E /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ThirdParty/googletest/googletest/libgtest.a; sourceTree = "<group>"; };
+		D9E0BA231CFA3CC50091133E /* DelaunayTriangulationTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DelaunayTriangulationTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9E0BA301CFB54C00091133E /* libgdal.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgdal.1.dylib; path = /opt/homebrew/Cellar/gdal/1.11.3_1/lib/libgdal.1.dylib; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9E0B9E51CF9F8C80091133E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9C864241CFC9A1C007EF874 /* libboost_system.dylib in Frameworks */,
+				D9C864221CFC9998007EF874 /* libboost_filesystem.dylib in Frameworks */,
+				D9E0BA311CFB54C00091133E /* libgdal.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9E0BA201CFA3CC50091133E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E0BA2A1CFA3D0B0091133E /* libgtest_main.a in Frameworks */,
+				D9E0BA2B1CFA3D0B0091133E /* libgtest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D9E0B9DF1CF9F8C80091133E = {
+			isa = PBXGroup;
+			children = (
+				D9E0B9EA1CF9F8C80091133E /* tacmap */,
+				D9E0BA031CF9FA920091133E /* GTests */,
+				D9E0BA1E1CFA3A240091133E /* External Libraries */,
+				D9E0B9E91CF9F8C80091133E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9E0B9E91CF9F8C80091133E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0B9E81CF9F8C80091133E /* tacmap */,
+				D9E0BA231CFA3CC50091133E /* DelaunayTriangulationTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9E0B9EA1CF9F8C80091133E /* tacmap */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */,
+				D9E0B9F31CF9F9380091133E /* DelaunayTriangulation.h */,
+				D9E0B9F41CF9F9380091133E /* DT_Circle.h */,
+				D9E0B9F51CF9F9380091133E /* DT_Constants.h */,
+				D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */,
+				D9E0B9F71CF9F9380091133E /* DT_DAG.h */,
+				D9E0B9F81CF9F9380091133E /* DT_Pool.h */,
+				D9E0B9F91CF9F9380091133E /* DT_Triangle.h */,
+				D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */,
+				D9E0B9FB1CF9F9380091133E /* DT_Utils.h */,
+				D9E0B9FC1CF9F9380091133E /* DT_Vector.h */,
+				D9E0B9FD1CF9F9380091133E /* DT_Vertex.h */,
+				D9E0B9EB1CF9F8C80091133E /* main.cpp */,
+			);
+			path = tacmap;
+			sourceTree = "<group>";
+		};
+		D9E0BA031CF9FA920091133E /* GTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */,
+			);
+			name = GTests;
+			sourceTree = "<group>";
+		};
+		D9E0BA1E1CFA3A240091133E /* External Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */,
+				D9C864231CFC9A1C007EF874 /* libboost_system.dylib */,
+				D9E0BA301CFB54C00091133E /* libgdal.1.dylib */,
+				D9E0BA171CFA35670091133E /* libgtest_main.a */,
+				D9E0BA181CFA35670091133E /* libgtest.a */,
+			);
+			name = "External Libraries";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9E0B9E71CF9F8C80091133E /* tacmap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9E0B9EF1CF9F8C80091133E /* Build configuration list for PBXNativeTarget "tacmap" */;
+			buildPhases = (
+				D9E0B9E41CF9F8C80091133E /* Sources */,
+				D9E0B9E51CF9F8C80091133E /* Frameworks */,
+				D9E0B9E61CF9F8C80091133E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tacmap;
+			productName = tacmap;
+			productReference = D9E0B9E81CF9F8C80091133E /* tacmap */;
+			productType = "com.apple.product-type.tool";
+		};
+		D9E0BA221CFA3CC50091133E /* DelaunayTriangulationTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9E0BA271CFA3CC50091133E /* Build configuration list for PBXNativeTarget "DelaunayTriangulationTest" */;
+			buildPhases = (
+				D9E0BA1F1CFA3CC50091133E /* Sources */,
+				D9E0BA201CFA3CC50091133E /* Frameworks */,
+				D9E0BA211CFA3CC50091133E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DelaunayTriangulationTest;
+			productName = DelaunayTriangulationTest;
+			productReference = D9E0BA231CFA3CC50091133E /* DelaunayTriangulationTest */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9E0B9E01CF9F8C80091133E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Parrish Myers";
+				TargetAttributes = {
+					D9E0B9E71CF9F8C80091133E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					D9E0BA221CFA3CC50091133E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D9E0B9E31CF9F8C80091133E /* Build configuration list for PBXProject "tacmap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D9E0B9DF1CF9F8C80091133E;
+			productRefGroup = D9E0B9E91CF9F8C80091133E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9E0B9E71CF9F8C80091133E /* tacmap */,
+				D9E0BA221CFA3CC50091133E /* DelaunayTriangulationTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9E0B9E41CF9F8C80091133E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E0B9FF1CF9F9380091133E /* DT_DAG.cpp in Sources */,
+				D9E0BA001CF9F9380091133E /* DT_Utils.cpp in Sources */,
+				D9E0B9FE1CF9F9380091133E /* DelaunayTriangulation.cpp in Sources */,
+				D9E0B9EC1CF9F8C80091133E /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9E0BA1F1CFA3CC50091133E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9E0BA2F1CFA3D2C0091133E /* DT_Utils.cpp in Sources */,
+				D9E0BA2D1CFA3D220091133E /* DelaunayTriangulation.cpp in Sources */,
+				D9E0BA2C1CFA3D1D0091133E /* DelaunayTriangulationTest.cpp in Sources */,
+				D9E0BA2E1CFA3D270091133E /* DT_DAG.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D9E0B9ED1CF9F8C80091133E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D9E0B9EE1CF9F8C80091133E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D9E0B9F01CF9F8C80091133E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/gdal/1.11.3_1/lib,
+					/opt/homebrew/Cellar/boost/1.58.0/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D9E0B9F11CF9F8C80091133E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/homebrew/Cellar/gdal/1.11.3_1/lib,
+					/opt/homebrew/Cellar/boost/1.58.0/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D9E0BA281CFA3CC50091133E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/googletest/include,
+					/Users/pmyers/Projects/tacmap/tacmap,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D9E0BA291CFA3CC50091133E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/googletest/include,
+					/Users/pmyers/Projects/tacmap/tacmap,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9E0B9E31CF9F8C80091133E /* Build configuration list for PBXProject "tacmap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9E0B9ED1CF9F8C80091133E /* Debug */,
+				D9E0B9EE1CF9F8C80091133E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9E0B9EF1CF9F8C80091133E /* Build configuration list for PBXNativeTarget "tacmap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9E0B9F01CF9F8C80091133E /* Debug */,
+				D9E0B9F11CF9F8C80091133E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9E0BA271CFA3CC50091133E /* Build configuration list for PBXNativeTarget "DelaunayTriangulationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9E0BA281CFA3CC50091133E /* Debug */,
+				D9E0BA291CFA3CC50091133E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9E0B9E01CF9F8C80091133E /* Project object */;
+}

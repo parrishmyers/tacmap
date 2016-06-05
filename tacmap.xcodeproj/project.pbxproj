@@ -373,7 +373,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
 					"$(PROJECT_DIR)/ThirdParty/googletest",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,7 +388,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
 					"$(PROJECT_DIR)/ThirdParty/googletest",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

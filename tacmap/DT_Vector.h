@@ -20,7 +20,15 @@ class Vector {
 private:
     Vertex data[2];
 public:
+    Vector() {
+        
+    }
+    
     Vector(Vertex * a,Vertex * b) {
+        set(a,b);
+    }
+    
+    void set(Vertex * a,Vertex * b) {
         data[0].set(a);
         data[1].set(b);
     }

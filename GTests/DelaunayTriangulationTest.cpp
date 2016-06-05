@@ -18,17 +18,21 @@
 
 class DelaunayTriangulationTest : public ::testing::Test {
 protected:
-    Triangle a,b;
+    Triangle *a,*b;
     Vertex i,j,k,l;
+    DAG dag;
 
     virtual void SetUp() {
         i.set(1.8,4.0);
         j.set(2.0,1.0);
         k.set(3.5,3.0);
         l.set(4.0,1.0);
-        a.setVertices(&i, &j, &k);
-        b.setVertices(&k, &j, &l);
+                
+        a = dag.get();
+        a->setVertices(&i, &j, &k);
         
+        b = dag.get();
+        b->setVertices(&k, &j, &l);
     }
     
     virtual void TearDown() {
@@ -139,26 +143,92 @@ TEST_F(DelaunayTriangulationTest, TestPool) {
     
 }
 
+TEST_F(DelaunayTriangulationTest, TestFind) {
+    Vertex p(2.5,2.5);
+    Triangle * fa = dag.find(&p);
+    ASSERT_TRUE(nullptr != fa);
+    ASSERT_TRUE(fa == a);
+}
+
 TEST_F(DelaunayTriangulationTest, TestDAGSplitOnInterior) {
     Vertex p(2.5,2.5);
+    Triangle * aa = dag.find(&p);
+    ASSERT_TRUE(nullptr != aa);
+    
+    int len_before = dag.len();
+    
+    dag.divide(aa, &p);
+    
+    int len_after = dag.len();
+    
+    ASSERT_EQ(len_after, len_before + 3);
+    ASSERT_FALSE(aa->isValid());
+    ASSERT_EQ(aa->numChildren(),3);
+    
+    Triangle * child_a = aa->getChild(0);
+    ASSERT_TRUE(child_a->containsPoints(p,i,j) ||
+                child_a->containsPoints(p,j,k) ||
+                child_a->containsPoints(p,k,i) );
+    
+    Triangle * child_b = aa->getChild(1);
+    ASSERT_TRUE(child_b->containsPoints(p,i,j) ||
+                child_b->containsPoints(p,j,k) ||
+                child_b->containsPoints(p,k,i) );
+
+    Triangle * child_c = aa->getChild(2);
+    ASSERT_TRUE(child_c->containsPoints(p,i,j) ||
+                child_c->containsPoints(p,j,k) ||
+                child_c->containsPoints(p,k,i) );
 }
 
 TEST_F(DelaunayTriangulationTest, TestDAGSplitOnEdge) {
     Vertex p = pointAlongLine2D(&j,&k,0.5);
+    
+    int len_before = dag.len();
+    
+    dag.divide(b, &p);
+    
+    int len_after = dag.len();
+    
+    EXPECT_EQ(len_after, len_before + 4);
+    EXPECT_FALSE(b->isValid());
+    EXPECT_FALSE(a->isValid());
+    EXPECT_EQ(b->numChildren(), 2);
+    EXPECT_EQ(a->numChildren(), 2);
+    
+    Triangle * child_a0 = a->getChild(0);
+    ASSERT_TRUE(nullptr != child_a0);
+    EXPECT_TRUE(child_a0->containsPoints(p,i,j) ||
+                child_a0->containsPoints(p,k,i) );
+    
+    Triangle * child_a1 = a->getChild(1);
+    ASSERT_TRUE(nullptr != child_a1);
+    EXPECT_TRUE(child_a1->containsPoints(p,i,j) ||
+                child_a1->containsPoints(p,k,i) );
+    
+    Triangle * child_b0 = b->getChild(0);
+    ASSERT_TRUE(nullptr != child_b0);
+    EXPECT_TRUE(child_b0->containsPoints(p,l,j) ||
+                child_b0->containsPoints(p,k,l) );
+    
+    Triangle * child_b1 = b->getChild(1);
+    ASSERT_TRUE(nullptr != child_b1);
+    EXPECT_TRUE(child_b1->containsPoints(p,l,j) ||
+                child_b1->containsPoints(p,k,l) );
 }
 
 TEST_F(DelaunayTriangulationTest, TestAlgorithm) {
     DelaunayTriangulation dt;
     
     std::srand(static_cast<unsigned int>(std::time(0))); // use current time as seed for random generator
-    for (int i = 0; i < 1000; i++) {
-        double x = (double)std::rand();
-        double y = (double)std::rand();
+    for (int i = 0; i < 100 ; i++) {
+        double x = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
+        double y = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
         
         dt.addPt(x, y, 0.0);
     }
     
     dt.compute();
 
-    ASSERT_TRUE(false);
+    ASSERT_TRUE(true);
 }

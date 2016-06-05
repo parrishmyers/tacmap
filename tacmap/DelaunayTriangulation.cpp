@@ -62,26 +62,10 @@ void DelaunayTriangulation::compute()
 	permute();
 
 	for (int i = 0; i < pts.len(); i++) {
-        Vertex * pr = getPoint(i);
-        Triangle * t = dag.find(pr);
+        Vertex * p = getPoint(i);
+        Triangle * t = dag.find(p);
         if (nullptr != t) {
-            Vector ij = t->getEdgeIJ();
-            Vector jk = t->getEdgeJK();
-            Vector ki = t->getEdgeKI();
-            
-            bool onEdgeIJ = ij.onEdge(pr);
-            bool onEdgeJK = jk.onEdge(pr);
-            bool onEdgeKI = ki.onEdge(pr);
-            
-            if (onEdgeIJ) {
-                
-            } else if (onEdgeJK) {
-                
-            } else if (onEdgeKI) {
-                
-            } else { // On interier
-                
-            }
+            dag.divide(t, p);
         }
 	}
 }

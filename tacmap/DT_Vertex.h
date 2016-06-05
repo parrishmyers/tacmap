@@ -58,5 +58,9 @@ public:
         if (bz > az + Constants::VECT_THRESH || bz < az - Constants::VECT_THRESH) equal = false;
         return equal;
     }
+    
+    bool operator!=(Vertex & b) {
+        return ! ( operator==(b) );
+    }
 };
 

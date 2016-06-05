@@ -54,16 +54,40 @@ public:
         return data;
     }
     
-    Vector  getEdgeIJ() {
-        return Vector(&data[I],&data[J]);
-    }
-
-    Vector  getEdgeJK() {
-        return Vector(&data[J],&data[K]);
+    bool edgeForPoint(Vertex * a,
+                          Vector * v, Vertex * b) {
+        Vector ij = Vector(&data[I],&data[J]);
+        Vector jk = Vector(&data[J],&data[K]);
+        Vector ki = Vector(&data[K],&data[I]);
+        
+        bool found = false;
+        
+        if (ij.onEdge(a)) {
+            *b = data[K];
+            *v = ij;
+            found = true;
+        } else if (jk.onEdge(a)) {
+            *b = data[I];
+            *v = jk;
+            found = true;
+        } else if (ki.onEdge(a)) {
+            *b = data[J];
+            *v = ki;
+            found = true;
+        }
+        return found;
     }
     
-    Vector  getEdgeKI() {
-        return Vector(&data[K],&data[I]);
+    Vertex * pointNotOnEdge(Vector *e)
+    {
+        Vertex *ap = getVertices();
+        Vertex *ep = e->getVertices();
+        for (int i = 0; i < 3; i++) {
+            if (ap[i] != ep[0] && ap[i] != ep[1]) {
+                return &ap[i];
+            }
+        }
+        return nullptr;
     }
     
     bool isValid() const {
@@ -85,8 +109,55 @@ public:
         return (idx >= 0 && idx < nChild)? child[idx] : nullptr;
 	}
     
-    bool containsPoint(Vertex &p) {
-        return (p == data[0] || p == data[1] || p == data[2])? true : false;
+    int numChildren() {
+        return nChild;
+    }
+    
+    int containsPoint(Vertex & p) {
+        if (data[0] == p)
+            return 0;
+        else if (data[1] == p)
+            return 1;
+        else if (data[2] == p)
+            return 2;
+        else
+            return -1;
+    }
+    
+    //int containsPoint(Vertex * p) {
+    //    Vertex & a = *p;
+    //    return containsPoint(a);
+    //}
+    
+    bool containsPoints(Vertex & a, Vertex & b, Vertex & c) {
+        bool answer[3] = {false,false,false};
+        int npt = -1;
+        
+        npt = containsPoint(a);
+        if (npt >= 0) {
+            if (answer[npt] == false)
+                answer[npt] = true;
+        } else {
+            return false;
+        }
+        
+        npt = containsPoint(b);
+        if (npt >= 0) {
+            if (answer[npt] == false)
+                answer[npt] = true;
+        } else {
+            return false;
+        }
+        
+        npt = containsPoint(c);
+        if (npt >= 0) {
+            if (answer[npt] == false)
+                answer[npt] = true;
+        } else {
+            return false;
+        }
+        
+        return (answer[0] == true && answer[1] == true && answer[2] == true) ? true : false;
     }
 
     bool containsEdge(Vector * v) {

@@ -17,10 +17,16 @@ private:
 public:
     DAG() {};
     ~DAG() {};
+    int len() {
+        return tri.len();
+    }
 	Triangle * find(Vertex * p);
     Triangle * findAdjacent(Vector * e);
-	void divide(Triangle * a, Vertex * pr);
-    void divideOnEdge(Triangle * a, Vector * e, Vertex * pr);
+	void divideOnInterior(Triangle * a, Vertex * pr);
+    void divideOnEdge(Triangle * a, Triangle * b, Vector * e, Vertex * p);
+    void divide(Triangle *a, Vertex *p);
+    void flip(Triangle *a, Triangle *b, Vertex *pr);
+    void validEdge(Triangle *a, Vertex *pr);
 	Triangle * get();
     void removeTriangleContainingPoint(Vertex * a);
 };

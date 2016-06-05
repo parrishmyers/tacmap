@@ -39,6 +39,12 @@ bool isContained(Triangle * t, Vertex * p) {
         return false;
 }
 
+bool inCircle(Triangle *a, Vertex * pr)
+{
+    Vertex * p = a->getVertices();
+    return inCircle(&p[0],&p[1],&p[2],pr);
+}
+
 bool inCircle(Vertex * a, Vertex * b, Vertex * c, Vertex * d)
 {
     double xa = a->getX();

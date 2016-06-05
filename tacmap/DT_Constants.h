@@ -12,7 +12,7 @@
 class Constants {
 public:
     constexpr static const long DAG_SIZE = 3000;
-    constexpr static const long POOL_SIZE = 6000;
+    constexpr static const long POOL_SIZE = 12000;
     constexpr static const double DIST_THRESH = 0.1f;
     constexpr static const double VECT_THRESH = 0.001;
 };

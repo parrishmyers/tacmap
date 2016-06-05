@@ -50,11 +50,11 @@ T * Pool<T, Size>::get()
 template<class T, int Size>
 T * Pool<T, Size>::operator[] (int const i)
 {
-	if (0 < i && i < numT) {
+	if (0 <= i && i < numT) {
 		return &t[i];
 	}
 	else {
-		//fprintf(stdout, "WARNING: Out of range of Pool contents!\n");
+		fprintf(stdout, "WARNING: Out of range of Pool contents!\n");
 		return nullptr;
 	}
 }

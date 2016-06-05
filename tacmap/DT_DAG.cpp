@@ -1,5 +1,6 @@
 #include <cmath>
 #include "DT_DAG.h"
+#include "DT_Utils.h"
 
 #include <assert.h>
 
@@ -26,8 +27,8 @@ Triangle * DAG::findAdjacent(Vector * e)
         Triangle * t = tri[i];
         if (t != nullptr &&
             t->isValid() &&
-            t->containsPoint(p[0]) &&
-            t->containsPoint(p[1])) {
+            t->containsPoint(p[0]) >= 0 &&
+            t->containsPoint(p[1]) >= 0) {
             return t;
         }
     }
@@ -35,7 +36,7 @@ Triangle * DAG::findAdjacent(Vector * e)
 }
 
 
-void DAG::divide(Triangle * a, Vertex * pr)
+void DAG::divideOnInterior(Triangle * a, Vertex * p)
 {
     // simple case, pr lies on interior
     // split a into a1,a2,a3
@@ -45,9 +46,9 @@ void DAG::divide(Triangle * a, Vertex * pr)
     Triangle * a2 = tri.get();
     Triangle * a3 = tri.get();
 
-    a1->setVertices(&v[0], &v[1], pr);
-    a2->setVertices(&v[1], &v[2], pr);
-    a3->setVertices(&v[2], &v[0], pr);
+    a1->setVertices(&v[0], &v[1], p);
+    a2->setVertices(&v[1], &v[2], p);
+    a3->setVertices(&v[2], &v[0], p);
     
     a->addChild(a1);
     a->addChild(a2);
@@ -56,72 +57,68 @@ void DAG::divide(Triangle * a, Vertex * pr)
 }
 
 
-void DAG::divideOnEdge(Triangle * a, Vector * e, Vertex * pr)
+void DAG::divideOnEdge(Triangle * a, Triangle * b, Vector * e, Vertex * p)
 {
-    // pr is on edge e
-    // need to find triange b that is adjacent to edge e
+    Vertex * ep = e->getVertices();
+    Vertex * ap = a->pointNotOnEdge(e);
+    Vertex * bp = b->pointNotOnEdge(e);
     
-    Triangle * t = nullptr;
-    for (int i = 0; i < tri.len(); i++) {
-        t = tri[i];
-        if (t != nullptr && t->isValid() && t->containsEdge(e)) {
-            break;
-        }
-    }
-    // found triange t
-    assert(t != nullptr);
-    Vertex * tv = t->getVertices();
+    Triangle * c1 = tri.get();
+    Triangle * c2 = tri.get();
+    Triangle * c3 = tri.get();
+    Triangle * c4 = tri.get();
     
-    // split triange and return 4 triangles
-    Vertex * av = a->getVertices();
-    Vertex * v[5];
-    v[0] = pr;
-    v[1] = &av[0];
-    v[2] = &av[1];
-    v[3] = &av[2];
-    v[4] = nullptr;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 1; j <= 3; j++) {
-            bool found = false;
-            if (tv[i] == *v[j]) {
-                found = true;
-            }
-            if (found == false) {
-                v[4] = &tv[i];
-                break;
-            }
-        }
-    }
-    assert(v[4] != nullptr);
+    c1->setVertices(p, &ep[0], ap);
+    c2->setVertices(p, &ep[1], ap);
     
-    //
-    // TODO: find the 5 points and assign the new vertices
-    //
-    
-    Triangle * a1 = tri.get();
-    Triangle * a2 = tri.get();
-    Triangle * a3 = tri.get();
-    Triangle * a4 = tri.get();
-    
-    a1->setVertices(v[0], v[1], v[2]);
-    a2->setVertices(v[0], v[1], v[2]);
-    a3->setVertices(v[0], v[1], v[2]);
-    a4->setVertices(v[0], v[1], v[2]);
-    
-    a->addChild(a1);
-    a->addChild(a2);
-    a->addChild(a3);
-    a->addChild(a4);
-    
-    t->addChild(a1);
-    t->addChild(a2);
-    t->addChild(a3);
-    t->addChild(a4);
-    
+    a->addChild(c1);
+    a->addChild(c2);
     a->setValid(false);
-    t->setValid(false);
+    
+    c3->setVertices(p, &ep[0], bp);
+    c4->setVertices(p, &ep[1], bp);
+
+    b->addChild(c3);
+    b->addChild(c4);
+    b->setValid(false);
 }
 
+void DAG::divide(Triangle *a, Vertex *p)
+{
+    Vertex nonEdgePoint;
+    Vector edgeForPoint;
+    if (a->edgeForPoint(p, &edgeForPoint, &nonEdgePoint)) { // on edge
+        // find adjacent triangle that shares an edge with first triangle
+        Triangle *b = findAdjacent(&edgeForPoint);
+        assert(b != nullptr);
+        
+        divideOnEdge(a, b, &edgeForPoint, p);
+    } else { // On interier
+        divideOnInterior(a, p);
+    }
+}
+
+void flip(Triangle *a, Triangle *b, Vertex *pr)
+{
+    
+}
+
+// ValidEdge(∆, pr,D(P))
+// Let ∆adj be the triangle opposite to pr and adjacent to ∆
+// if InCircle(∆adj , pr) then
+//     (* We have to make an edge flip *)
+//     flip(∆,∆adj, pr,D(P))
+//     Let ∆′ and ∆′′ be the two new triangles, recursively legalize them
+//     ValidEdge(∆′, pr,D(P))
+//     ValidEdge(∆′′, pr,D(P))
+// end if
+void DAG::validEdge(Triangle *a, Vertex *pr)
+{
+    // Let ∆adj be the triangle opposite to pr and adjacent to ∆
+    if (inCircle(a, pr)) {
+        // make an edge flip
+    }
+}
 
 Triangle * DAG::get()
 {

@@ -23,6 +23,7 @@ bool isContained(Triangle * t, Vertex * p);
 //
 // Circle tests
 //
+bool inCircle(Triangle *a, Vertex * pr);
 bool inCircle(Vertex * a, Vertex * b, Vertex * c, Vertex * d);
 Circle circleForPoints(Vertex * a, Vertex * b, Vertex * c);
 Vertex pointAlongLine2D(Vertex * a, Vertex * b, double tn);

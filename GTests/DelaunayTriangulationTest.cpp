@@ -18,7 +18,17 @@
 
 class DelaunayTriangulationTest : public ::testing::Test {
 protected:
+    Triangle a,b;
+    Vertex i,j,k,l;
+
     virtual void SetUp() {
+        i.set(1.8,4.0);
+        j.set(2.0,1.0);
+        k.set(3.5,3.0);
+        l.set(4.0,1.0);
+        a.setVertices(&i, &j, &k);
+        b.setVertices(&k, &j, &l);
+        
     }
     
     virtual void TearDown() {
@@ -26,7 +36,7 @@ protected:
 
 };
 
-TEST(DelaunayTriangulationTest, TestVertex) {
+TEST_F(DelaunayTriangulationTest, TestVertex) {
     Vertex a = Vertex(1.0,1.0);
     Vertex b = Vertex(1.1, 1.1);
     Vertex c = Vertex(1.0001,1.0001);
@@ -34,7 +44,7 @@ TEST(DelaunayTriangulationTest, TestVertex) {
     ASSERT_TRUE(a == c);
 }
 
-TEST(DelaunayTriangulationTest, TestContainment) {
+TEST_F(DelaunayTriangulationTest, TestContainment) {
     Vertex a(4.0, 9.0);
     Vertex b(7.0, 5.0);
     Vertex c(10.0, 16.0);
@@ -55,7 +65,7 @@ TEST(DelaunayTriangulationTest, TestContainment) {
     EXPECT_TRUE ( isContained(&t, &c)  ); // coincident with c
 }
 
-TEST(DelaunayTriangulationTest, TestInCircle) {
+TEST_F(DelaunayTriangulationTest, TestInCircle) {
     Vertex * i = new Vertex(0.0,0.0);
     Vertex * j = new Vertex(1.0,0.0);
     Vertex * k = new Vertex(0.0,1.0);
@@ -73,7 +83,7 @@ TEST(DelaunayTriangulationTest, TestInCircle) {
     delete c;
 }
 
-TEST(DelaunayTriangulationTest, TestOnEdge) {
+TEST_F(DelaunayTriangulationTest, TestOnEdge) {
     Vertex n1(5.0,10.0);
     Vertex n2(10.0,16.0);
     
@@ -117,7 +127,7 @@ TEST(DelaunayTriangulationTest, TestOnEdge) {
     EXPECT_EQ( 1, n.onEdge(&k) );
 }
 
-TEST(DelaunayTriangulationTest, TestPool) {
+TEST_F(DelaunayTriangulationTest, TestPool) {
     Pool<Vertex,1000> p;
     
     for (int i = 0; i < 1000; i++) {
@@ -129,7 +139,15 @@ TEST(DelaunayTriangulationTest, TestPool) {
     
 }
 
-TEST(DelaunayTriangulationTest, TestAlgorithm) {
+TEST_F(DelaunayTriangulationTest, TestDAGSplitOnInterior) {
+    Vertex p(2.5,2.5);
+}
+
+TEST_F(DelaunayTriangulationTest, TestDAGSplitOnEdge) {
+    Vertex p = pointAlongLine2D(&j,&k,0.5);
+}
+
+TEST_F(DelaunayTriangulationTest, TestAlgorithm) {
     DelaunayTriangulation dt;
     
     std::srand(static_cast<unsigned int>(std::time(0))); // use current time as seed for random generator

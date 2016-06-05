@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D998A8D81CFFC3F400F09E45 /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D998A8D61CFFC3F400F09E45 /* libgtest_main.a */; };
+		D998A8D91CFFC3F400F09E45 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D998A8D71CFFC3F400F09E45 /* libgtest.a */; };
 		D9C864221CFC9998007EF874 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */; };
 		D9C864241CFC9A1C007EF874 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C864231CFC9A1C007EF874 /* libboost_system.dylib */; };
 		D9E0B9EC1CF9F8C80091133E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9EB1CF9F8C80091133E /* main.cpp */; };
 		D9E0B9FE1CF9F9380091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
 		D9E0B9FF1CF9F9380091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
 		D9E0BA001CF9F9380091133E /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */; };
-		D9E0BA2A1CFA3D0B0091133E /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA171CFA35670091133E /* libgtest_main.a */; };
-		D9E0BA2B1CFA3D0B0091133E /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA181CFA35670091133E /* libgtest.a */; };
 		D9E0BA2C1CFA3D1D0091133E /* DelaunayTriangulationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */; };
 		D9E0BA2D1CFA3D220091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
 		D9E0BA2E1CFA3D270091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
@@ -44,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D998A8D61CFFC3F400F09E45 /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = ThirdParty/googletest/libgtest_main.a; sourceTree = "<group>"; };
+		D998A8D71CFFC3F400F09E45 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ThirdParty/googletest/libgtest.a; sourceTree = "<group>"; };
 		D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /opt/homebrew/Cellar/boost/1.58.0/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
 		D9C864231CFC9A1C007EF874 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = /opt/homebrew/Cellar/boost/1.58.0/lib/libboost_system.dylib; sourceTree = "<absolute>"; };
 		D9E0B9E81CF9F8C80091133E /* tacmap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tacmap; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +63,6 @@
 		D9E0B9FC1CF9F9380091133E /* DT_Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vector.h; sourceTree = "<group>"; };
 		D9E0B9FD1CF9F9380091133E /* DT_Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vertex.h; sourceTree = "<group>"; };
 		D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DelaunayTriangulationTest.cpp; path = GTests/DelaunayTriangulationTest.cpp; sourceTree = "<group>"; };
-		D9E0BA171CFA35670091133E /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = ThirdParty/googletest/googletest/libgtest_main.a; sourceTree = "<group>"; };
-		D9E0BA181CFA35670091133E /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ThirdParty/googletest/googletest/libgtest.a; sourceTree = "<group>"; };
 		D9E0BA231CFA3CC50091133E /* DelaunayTriangulationTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DelaunayTriangulationTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9E0BA301CFB54C00091133E /* libgdal.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgdal.1.dylib; path = /opt/homebrew/Cellar/gdal/1.11.3_1/lib/libgdal.1.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -82,8 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9E0BA2A1CFA3D0B0091133E /* libgtest_main.a in Frameworks */,
-				D9E0BA2B1CFA3D0B0091133E /* libgtest.a in Frameworks */,
+				D998A8D81CFFC3F400F09E45 /* libgtest_main.a in Frameworks */,
+				D998A8D91CFFC3F400F09E45 /* libgtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +143,8 @@
 				D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */,
 				D9C864231CFC9A1C007EF874 /* libboost_system.dylib */,
 				D9E0BA301CFB54C00091133E /* libgdal.1.dylib */,
-				D9E0BA171CFA35670091133E /* libgtest_main.a */,
-				D9E0BA181CFA35670091133E /* libgtest.a */,
+				D998A8D61CFFC3F400F09E45 /* libgtest_main.a */,
+				D998A8D71CFFC3F400F09E45 /* libgtest.a */,
 			);
 			name = "External Libraries";
 			sourceTree = "<group>";
@@ -368,12 +368,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/googletest/include,
+					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/include,
 					/Users/pmyers/Projects/tacmap/tacmap,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
+					"$(PROJECT_DIR)/ThirdParty/googletest",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -383,12 +384,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/googletest/include,
+					/Users/pmyers/Projects/tacmap/ThirdParty/googletest/include,
 					/Users/pmyers/Projects/tacmap/tacmap,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ThirdParty/googletest/googletest",
+					"$(PROJECT_DIR)/ThirdParty/googletest",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

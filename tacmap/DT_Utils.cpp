@@ -104,3 +104,10 @@ Circle circleForPoints(Vertex * a, Vertex * b, Vertex * c)
     
     return Circle(h,k,r);
 }
+
+Vertex pointAlongLine2D(Vertex * a, Vertex * b, double tn = 0.5)
+{
+    double nx = a->getX() + tn * (b->getX() - a->getX());
+    double ny = a->getY() + tn * (b->getY() - a->getY());
+    return Vertex(nx,ny);
+}

@@ -25,5 +25,6 @@ bool isContained(Triangle * t, Vertex * p);
 //
 bool inCircle(Vertex * a, Vertex * b, Vertex * c, Vertex * d);
 Circle circleForPoints(Vertex * a, Vertex * b, Vertex * c);
+Vertex pointAlongLine2D(Vertex * a, Vertex * b, double tn);
 
 #endif /* DT_Utils_hpp */

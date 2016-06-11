@@ -90,6 +90,15 @@ public:
         return nullptr;
     }
     
+    Vector edgeNotContainingPoint(Vertex *p)
+    {
+        for (int i = 0; i < 3; i++) {
+            if (data[i] == *p) {
+                if
+            }
+        }
+    }
+    
     bool isValid() const {
         return (pts >= 3 && valid == true)? true : false;
 	}

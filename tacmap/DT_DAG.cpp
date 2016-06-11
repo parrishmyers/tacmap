@@ -103,6 +103,7 @@ void flip(Triangle *a, Triangle *b, Vertex *pr)
     
 }
 
+///
 // ValidEdge(∆, pr,D(P))
 // Let ∆adj be the triangle opposite to pr and adjacent to ∆
 // if InCircle(∆adj , pr) then
@@ -112,6 +113,7 @@ void flip(Triangle *a, Triangle *b, Vertex *pr)
 //     ValidEdge(∆′, pr,D(P))
 //     ValidEdge(∆′′, pr,D(P))
 // end if
+///
 void DAG::validEdge(Triangle *a, Vertex *pr)
 {
     // Let ∆adj be the triangle opposite to pr and adjacent to ∆

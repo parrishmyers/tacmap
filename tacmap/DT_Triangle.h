@@ -1,18 +1,14 @@
 #pragma once
 
+#include <assert.h>
+
 #include "DT_Vertex.h"
 #include "DT_Vector.h"
 
 class Triangle {
-public:
-	enum Corner {
-		I = 0,
-		J = 1,
-		K = 2,
-	};
 private:
 	int pts;
-	Vertex data[3];
+	Vertex * data[3];
 
 	int nChild;
 	Triangle * child[3];
@@ -28,6 +24,9 @@ private:
 
 public:
 	Triangle() : valid(false), pts(0), nChild(0) {
+        data[0] = nullptr;
+        data[1] = nullptr;
+        data[2] = nullptr;
 		child[0] = nullptr;
 		child[1] = nullptr;
 		child[2] = nullptr;
@@ -39,9 +38,10 @@ public:
     ~Triangle() {}
     
     void setVertices(Vertex * i, Vertex * j, Vertex * k) {
-        data[I].set(i);
-        data[J].set(j);
-        data[K].set(k);
+        assert( nullptr != i && nullptr != j && nullptr != k );
+        data[0] = i;
+        data[1] = j;
+        data[2] = k;
         pts = 3;
         valid = true;
         child[0] = nullptr;
@@ -50,51 +50,21 @@ public:
         nChild = 0;
     }
 
-    Vertex * getVertices() {
+    Vertex ** getVertices() {
         return data;
     }
     
-    bool edgeForPoint(Vertex * a,
-                          Vector * v, Vertex * b) {
-        Vector ij = Vector(&data[I],&data[J]);
-        Vector jk = Vector(&data[J],&data[K]);
-        Vector ki = Vector(&data[K],&data[I]);
-        
-        bool found = false;
-        
-        if (ij.onEdge(a)) {
-            *b = data[K];
-            *v = ij;
-            found = true;
-        } else if (jk.onEdge(a)) {
-            *b = data[I];
-            *v = jk;
-            found = true;
-        } else if (ki.onEdge(a)) {
-            *b = data[J];
-            *v = ki;
-            found = true;
-        }
-        return found;
-    }
-    
-    Vertex * pointNotOnEdge(Vector *e)
+    void getVerticesNotContainingPoint(Vertex *p, Vertex *e[2])
     {
-        Vertex *ap = getVertices();
-        Vertex *ep = e->getVertices();
-        for (int i = 0; i < 3; i++) {
-            if (ap[i] != ep[0] && ap[i] != ep[1]) {
-                return &ap[i];
-            }
-        }
-        return nullptr;
-    }
-    
-    Vector edgeNotContainingPoint(Vertex *p)
-    {
-        for (int i = 0; i < 3; i++) {
-            if (data[i] == *p) {
-                if
+        Vertex **ap = getVertices();
+        e[0] = nullptr;
+        e[1] = nullptr;
+
+        for (int i = 0, j = 0; i < 3; i++) {
+            if (ap[i] != p) {
+                assert(j < 2);
+                e[j] = ap[i];
+                j += 1;
             }
         }
     }
@@ -123,11 +93,11 @@ public:
     }
     
     int containsPoint(Vertex & p) {
-        if (data[0] == p)
+        if (*data[0] == p)
             return 0;
-        else if (data[1] == p)
+        else if (*data[1] == p)
             return 1;
-        else if (data[2] == p)
+        else if (*data[2] == p)
             return 2;
         else
             return -1;
@@ -168,20 +138,45 @@ public:
         
         return (answer[0] == true && answer[1] == true && answer[2] == true) ? true : false;
     }
-
-    bool containsEdge(Vector * v) {
-        Vertex * p = v->getVertices();
+    
+    bool onEdge(Vertex * a) {
+        Vector ij = Vector(data[0],data[1]);
+        Vector jk = Vector(data[1],data[2]);
+        Vector ki = Vector(data[2],data[0]);
         
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i == j) continue;
-                if (data[i] == p[0] && data[j] == p[1])
-                    return true;
-                else if (data[i] == p[1] && data[j] == p[0])
-                    return true;
-            }
+        bool found = false;
+        
+        if (ij.onEdge(a)) {
+            found = true;
+        } else if (jk.onEdge(a)) {
+            found = true;
+        } else if (ki.onEdge(a)) {
+            found = true;
         }
-        return false;
+        return found;
+    }
+    
+    void print() {
+        fprintf(stdout, "%0lX : %d %d\n",
+                (unsigned long)this,
+                isValid(),
+                numChildren());
+        fprintf(stdout, "\tDATA:\n");
+        for (int d = 0; d < 3; d++) {
+            if (nullptr != data[d])
+                fprintf(stdout, "\t\t%d. %s\n", d, data[d]->str().c_str());
+            else
+                fprintf(stdout, "\t\t%d. nullptr\n", d);
+        }
+        fprintf(stdout, "\tCHILDREN:\n");
+        for (int j = 0; j < 3; j++) {
+            Triangle * c = getChild(j);
+            if (nullptr == c)
+                fprintf(stdout, "\t\t%d. nullptr\n", j);
+            else
+                fprintf(stdout, "\t\t%d. %0lX\n", j, (unsigned long)c);
+        }
+
     }
     
     friend bool isContained(Triangle * t, Vertex * p);

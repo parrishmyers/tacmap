@@ -24,7 +24,8 @@ public:
     
     std::string str() {
         char tmp[1000];
-        sprintf(tmp, "Vertex[%9.3lf,%9.3lf,%9.3lf]",
+        sprintf(tmp, "%0lX -> V[%9.3lf,%9.3lf,%9.3lf]",
+                (unsigned long)this,
                 data[X],data[Y],data[Z]);
         return std::string(tmp);
     }

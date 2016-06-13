@@ -20,13 +20,16 @@ public:
     int len() {
         return tri.len();
     }
-	Triangle * find(Vertex * p);
-    Triangle * findAdjacent(Vector * e);
+    Triangle * findTriangleContainingPoint(Vertex *p, bool leftRecursive=true);
+    Triangle * findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive=true);
 	void divideOnInterior(Triangle * a, Vertex * pr);
-    void divideOnEdge(Triangle * a, Triangle * b, Vector * e, Vertex * p);
+    void divideOnEdge(Triangle * a, Triangle * b, Vertex * p);
     void divide(Triangle *a, Vertex *p);
-    void flip(Triangle *a, Triangle *b, Vertex *pr);
+    void flip(Triangle *a, Triangle *b, Vertex *pr,
+              Triangle *n[2]);
     void validEdge(Triangle *a, Vertex *pr);
 	Triangle * get();
     void removeTriangleContainingPoint(Vertex * a);
+    
+    void printTree();
 };

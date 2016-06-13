@@ -145,14 +145,14 @@ TEST_F(DelaunayTriangulationTest, TestPool) {
 
 TEST_F(DelaunayTriangulationTest, TestFind) {
     Vertex p(2.5,2.5);
-    Triangle * fa = dag.find(&p);
+    Triangle * fa = dag.findTriangleContainingPoint(&p);
     ASSERT_TRUE(nullptr != fa);
     ASSERT_TRUE(fa == a);
 }
 
 TEST_F(DelaunayTriangulationTest, TestDAGSplitOnInterior) {
     Vertex p(2.5,2.5);
-    Triangle * aa = dag.find(&p);
+    Triangle * aa = dag.findTriangleContainingPoint(&p);
     ASSERT_TRUE(nullptr != aa);
     
     int len_before = dag.len();
@@ -185,9 +185,7 @@ TEST_F(DelaunayTriangulationTest, TestDAGSplitOnEdge) {
     Vertex p = pointAlongLine2D(&j,&k,0.5);
     
     int len_before = dag.len();
-    
     dag.divide(b, &p);
-    
     int len_after = dag.len();
     
     EXPECT_EQ(len_after, len_before + 4);

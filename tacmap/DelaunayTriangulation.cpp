@@ -63,7 +63,7 @@ void DelaunayTriangulation::compute()
 
 	for (int i = 0; i < pts.len(); i++) {
         Vertex * p = getPoint(i);
-        Triangle * t = dag.find(p);
+        Triangle * t = dag.findTriangleContainingPoint(p);
         if (nullptr != t) {
             dag.divide(t, p);
         }

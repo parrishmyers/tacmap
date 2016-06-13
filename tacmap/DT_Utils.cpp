@@ -17,14 +17,14 @@ bool isContained(Triangle * t, Vertex * p) {
     double x = p->getX();
     double y = p->getY();
     
-    double x1 = t->data[0].getX();
-    double y1 = t->data[0].getY();
+    double x1 = t->data[0]->getX();
+    double y1 = t->data[0]->getY();
     
-    double x2 = t->data[1].getX();
-    double y2 = t->data[1].getY();
+    double x2 = t->data[1]->getX();
+    double y2 = t->data[1]->getY();
     
-    double x3 = t->data[2].getX();
-    double y3 = t->data[2].getY();
+    double x3 = t->data[2]->getX();
+    double y3 = t->data[2]->getY();
     
     double denom = 1.0 / (x1*(y2 - y3) + y1*(x3 - x2) + x2*y3 - y2*x3);
     
@@ -41,8 +41,8 @@ bool isContained(Triangle * t, Vertex * p) {
 
 bool inCircle(Triangle *a, Vertex * pr)
 {
-    Vertex * p = a->getVertices();
-    return inCircle(&p[0],&p[1],&p[2],pr);
+    Vertex ** p = a->getVertices();
+    return inCircle(p[0],p[1],p[2],pr);
 }
 
 bool inCircle(Vertex * a, Vertex * b, Vertex * c, Vertex * d)

@@ -157,7 +157,7 @@ public:
     }
     
     void print() {
-        fprintf(stdout, "%0lX : %d %d\n",
+        fprintf(stdout, "0x%0lx : %d %d\n",
                 (unsigned long)this,
                 isValid(),
                 numChildren());
@@ -174,7 +174,7 @@ public:
             if (nullptr == c)
                 fprintf(stdout, "\t\t%d. nullptr\n", j);
             else
-                fprintf(stdout, "\t\t%d. %0lX\n", j, (unsigned long)c);
+                fprintf(stdout, "\t\t%d. 0x%0lX\n", j, (unsigned long)c);
         }
 
     }

@@ -62,10 +62,16 @@ void DelaunayTriangulation::compute()
 	permute();
 
 	for (int i = 0; i < pts.len(); i++) {
+        dag.printTree();
         Vertex * p = getPoint(i);
         Triangle * t = dag.findTriangleContainingPoint(p);
         if (nullptr != t) {
-            dag.divide(t, p);
+            Triangle ** newT = dag.divide(t, p);
+            for (int i = 0; i < 4; i++) {
+                if (nullptr != newT[i])
+                    dag.validEdge(newT[i], p);
+            }
         }
+        fprintf(stdout,"\n\n");
 	}
 }

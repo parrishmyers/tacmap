@@ -147,6 +147,11 @@ void DAG::divideOnInterior(Triangle * a, Vertex * p)
     a->addChild(a2);
     a->addChild(a3);
     a->setValid(false);
+    
+    splitList[0] = a1;
+    splitList[1] = a2;
+    splitList[2] = a3;
+    splitList[3] = nullptr;
 }
 
 
@@ -176,18 +181,35 @@ void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
     b->addChild(c3);
     b->addChild(c4);
     b->setValid(false);
+    
+    splitList[0] = c1;
+    splitList[1] = c2;
+    splitList[2] = c3;
+    splitList[3] = c4;
 }
 
-void DAG::divide(Triangle *a, Vertex *p)
+Triangle ** DAG::divide(Triangle *a, Vertex *p)
 {
     if (a->onEdge(p)) {
         Triangle * b = findTriangleContainingPoint(p,false);
         assert(nullptr != b);
         assert(a != b);
+        fprintf(stdout,"divide 0x%0lx 0x%0lx\n",
+                (unsigned long)a,
+                (unsigned long)b);
         divideOnEdge(a, b, p);
     } else {
+        fprintf(stdout,"divide 0x%0lx\n",
+                (unsigned long)a);
         divideOnInterior(a, p);
     }
+    
+    fprintf(stdout,"\t0x%lx 0x%lx 0x%lx 0x%lx\n",
+            (unsigned long)splitList[0],
+            (unsigned long)splitList[1],
+            (unsigned long)splitList[2],
+            (unsigned long)splitList[3]);
+    return splitList;
 }
 
 void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
@@ -212,6 +234,12 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[0]);
     b->addChild(n[1]);
     b->setValid(false);
+    
+    fprintf(stdout,"flip 0x%0lx 0x%0lX > 0x%0lX 0x%0lX\n",
+            (unsigned long)a,
+            (unsigned long)b,
+            (unsigned long)n[0],
+            (unsigned long)n[1]);
 }
 
 ///
@@ -229,7 +257,8 @@ void DAG::validEdge(Triangle *a, Vertex *pr)
 {
     // Let ∆adj be the triangle opposite to pr and adjacent to ∆
     Triangle *b = findAdjacentTriangle(a, pr, false);
-    assert( nullptr != b && a != b);
+    assert( nullptr != b);
+    if (a != b) return;
     if (inCircle(a, pr)) {
         Triangle *n[2];
         flip(a,b,pr,n);

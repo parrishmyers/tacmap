@@ -194,21 +194,27 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
         Triangle * b = findTriangleContainingPoint(p,false);
         assert(nullptr != b);
         assert(a != b);
-        fprintf(stdout,"divide 0x%0lx 0x%0lx\n",
+        fprintf(stdout,"{'step': 'divide', 'type': 'edge', 'orig': ['0x%0lx', '0x%0lx'], ",
                 (unsigned long)a,
                 (unsigned long)b);
         divideOnEdge(a, b, p);
     } else {
-        fprintf(stdout,"divide 0x%0lx\n",
+        fprintf(stdout,"{'step': 'divide', 'type': 'interior', 'orig': ['0x%0lx', None], ",
                 (unsigned long)a);
         divideOnInterior(a, p);
     }
     
-    fprintf(stdout,"\t0x%lx 0x%lx 0x%lx 0x%lx\n",
-            (unsigned long)splitList[0],
-            (unsigned long)splitList[1],
-            (unsigned long)splitList[2],
-            (unsigned long)splitList[3]);
+    fprintf(stdout,"'new': ["); //'0x%lx', '0x%lx', '0x%lx', '0x%lx']}\n",
+    for (int i = 0; i < 4; i++) {
+        if (nullptr != splitList[i])
+            fprintf(stdout,"'0x%lx'", (unsigned long)splitList[i]);
+        else
+            fprintf(stdout,"None");
+        
+        if (i < 3)
+            fprintf(stdout,", ");
+    }
+    fprintf(stdout,"]}\n");
     return splitList;
 }
 
@@ -235,7 +241,7 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[1]);
     b->setValid(false);
     
-    fprintf(stdout,"flip 0x%0lx 0x%0lX > 0x%0lX 0x%0lX\n",
+    fprintf(stdout,"{'step':'flip','orig': ['0x%0lx', '0x%0lX'], 'new': ['0x%0lX', '0x%0lX']}\n",
             (unsigned long)a,
             (unsigned long)b,
             (unsigned long)n[0],
@@ -285,17 +291,16 @@ void DAG::removeTriangleContainingPoint(Vertex * a)
     }
 }
 
-void DAG::printTree()
+void DAG::printTree(int step, const char name[])
 {
+    fprintf(stdout,"{'step': 'dag', 'name': '%s_%04d', 'tree': [",name,step);
     long len = tri.len();
     for (int i = 0; i < len; i++) {
         Triangle *a = tri[i];
-        if (nullptr == a) {
-            fprintf(stdout,"NULLPTR\n");
-        } else {
-            fprintf(stdout,"T[%d] = ",i);
-            a->print();
-        }
+        a->print();
+        if (i < len-1)
+            fprintf(stdout,", ");
     }
+    fprintf(stdout,"]}\n");
 }
 

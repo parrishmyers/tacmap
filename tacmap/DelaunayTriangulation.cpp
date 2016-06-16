@@ -60,9 +60,17 @@ void DelaunayTriangulation::compute()
 
 	init();
 	permute();
+    
+    for (int i = 0; i < pts.len(); i++) {
+        fprintf(stdout,"{'step': 'points', 'index': %d, 'data': %s}\n",
+                i,
+                pts[i]->str().c_str());
+    }
+    fprintf(stdout,"\n");
 
 	for (int i = 0; i < pts.len(); i++) {
-        dag.printTree();
+        fprintf(stdout,"{'step': 'top', 'loop': %d}\n",i);
+        dag.printTree(i,"dag_before_");
         Vertex * p = getPoint(i);
         Triangle * t = dag.findTriangleContainingPoint(p);
         if (nullptr != t) {
@@ -72,6 +80,7 @@ void DelaunayTriangulation::compute()
                     dag.validEdge(newT[i], p);
             }
         }
-        fprintf(stdout,"\n\n");
+        dag.printTree(i,"dag_after_");
+        fprintf(stdout,"\n");
 	}
 }

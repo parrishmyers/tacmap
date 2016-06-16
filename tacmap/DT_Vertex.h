@@ -24,7 +24,7 @@ public:
     
     std::string str() {
         char tmp[1000];
-        sprintf(tmp, "0x%0lx -> V[%9.3lf,%9.3lf,%9.3lf]",
+        sprintf(tmp, "{'addr': '0x%0lx', 'location': [%9.3lf, %9.3lf, %9.3lf]}",
                 (unsigned long)this,
                 data[X],data[Y],data[Z]);
         return std::string(tmp);

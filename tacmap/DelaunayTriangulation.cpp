@@ -1,4 +1,7 @@
+
 #include "DelaunayTriangulation.h"
+
+FILE * DebugLog = nullptr;
 
 void DelaunayTriangulation::permute()
 {
@@ -25,10 +28,15 @@ void DelaunayTriangulation::init()
 
 DelaunayTriangulation::DelaunayTriangulation() : M(0)
 {
+    DebugLog = fopen("/Users/pmyers/Projects/tacmap/scripts/run1.txt","w");
 }
 
 DelaunayTriangulation::~DelaunayTriangulation()
 {
+    if (nullptr != DebugLog) {
+        fclose(DebugLog);
+        DebugLog = nullptr;
+    }
 }
 
 void DelaunayTriangulation::addPt(double x, double y, double z = 0.0)
@@ -62,16 +70,20 @@ void DelaunayTriangulation::compute()
 	permute();
     
     for (int i = 0; i < pts.len(); i++) {
-        fprintf(stdout,"{'step': 'points', 'index': %d, 'data': %s}\n",
+        fprintf(DebugLog,"{'step': 'points', 'index': %d, 'data': %s}\n",
                 i,
                 pts[i]->str().c_str());
     }
-    fprintf(stdout,"\n");
+    fprintf(DebugLog,"\n");
 
 	for (int i = 0; i < pts.len(); i++) {
-        fprintf(stdout,"{'step': 'top', 'loop': %d}\n",i);
-        dag.printTree(i,"dag_before_");
         Vertex * p = getPoint(i);
+
+        fprintf(DebugLog,"{'step': 'top', 'loop': %d, 'point': '0x%0lx'}\n",
+                i,
+                (unsigned long)p);
+        dag.printTree("before");
+        
         Triangle * t = dag.findTriangleContainingPoint(p);
         if (nullptr != t) {
             Triangle ** newT = dag.divide(t, p);
@@ -80,7 +92,8 @@ void DelaunayTriangulation::compute()
                     dag.validEdge(newT[i], p);
             }
         }
-        dag.printTree(i,"dag_after_");
-        fprintf(stdout,"\n");
+        dag.printTree("after");
+        fprintf(DebugLog,"{'step': 'bottom', 'loop': %d}\n",i);
+        fprintf(DebugLog,"\n");
 	}
 }

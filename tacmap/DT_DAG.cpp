@@ -4,6 +4,8 @@
 
 #include <assert.h>
 
+extern FILE * DebugLog;
+
 //
 // DAG member functions
 //
@@ -194,27 +196,35 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
         Triangle * b = findTriangleContainingPoint(p,false);
         assert(nullptr != b);
         assert(a != b);
-        fprintf(stdout,"{'step': 'divide', 'type': 'edge', 'orig': ['0x%0lx', '0x%0lx'], ",
-                (unsigned long)a,
-                (unsigned long)b);
+        if (nullptr != DebugLog)
+            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'edge', 'orig': ['0x%0lx', '0x%0lx'], ",
+                    (unsigned long)a,
+                    (unsigned long)b);
         divideOnEdge(a, b, p);
     } else {
-        fprintf(stdout,"{'step': 'divide', 'type': 'interior', 'orig': ['0x%0lx', None], ",
-                (unsigned long)a);
+        if (nullptr != DebugLog)
+            fprintf(DebugLog,"{'step': 'divide', 'data' : {'type': 'interior', 'orig': ['0x%0lx', None], ",
+                    (unsigned long)a);
         divideOnInterior(a, p);
     }
     
-    fprintf(stdout,"'new': ["); //'0x%lx', '0x%lx', '0x%lx', '0x%lx']}\n",
+    if (nullptr != DebugLog)
+        fprintf(DebugLog,"'new': ["); //'0x%lx', '0x%lx', '0x%lx', '0x%lx']}\n",
     for (int i = 0; i < 4; i++) {
-        if (nullptr != splitList[i])
-            fprintf(stdout,"'0x%lx'", (unsigned long)splitList[i]);
-        else
-            fprintf(stdout,"None");
-        
-        if (i < 3)
-            fprintf(stdout,", ");
+        if (nullptr != splitList[i]) {
+            if (nullptr != DebugLog)
+                fprintf(DebugLog,"'0x%lx'", (unsigned long)splitList[i]);
+        } else {
+            if (nullptr != DebugLog)
+                fprintf(DebugLog,"None");
+        }
+        if (i < 3) {
+            if (nullptr != DebugLog)
+                fprintf(DebugLog,", ");
+        }
     }
-    fprintf(stdout,"]}\n");
+    if (nullptr != DebugLog)
+        fprintf(DebugLog,"]}}\n");
     return splitList;
 }
 
@@ -241,11 +251,12 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[1]);
     b->setValid(false);
     
-    fprintf(stdout,"{'step':'flip','orig': ['0x%0lx', '0x%0lX'], 'new': ['0x%0lX', '0x%0lX']}\n",
-            (unsigned long)a,
-            (unsigned long)b,
-            (unsigned long)n[0],
-            (unsigned long)n[1]);
+    if (nullptr != DebugLog)
+        fprintf(DebugLog,"{'step':'flip', 'data': {'orig': ['0x%0lx', '0x%0lX'], 'new': ['0x%0lX', '0x%0lX']}}\n",
+                (unsigned long)a,
+                (unsigned long)b,
+                (unsigned long)n[0],
+                (unsigned long)n[1]);
 }
 
 ///
@@ -291,16 +302,16 @@ void DAG::removeTriangleContainingPoint(Vertex * a)
     }
 }
 
-void DAG::printTree(int step, const char name[])
+void DAG::printTree(const char name[])
 {
-    fprintf(stdout,"{'step': 'dag', 'name': '%s_%04d', 'tree': [",name,step);
+    fprintf(DebugLog,"{'step': 'dag', 'name': '%s', 'tree': [",name);
     long len = tri.len();
     for (int i = 0; i < len; i++) {
         Triangle *a = tri[i];
         a->print();
         if (i < len-1)
-            fprintf(stdout,", ");
+            fprintf(DebugLog,", ");
     }
-    fprintf(stdout,"]}\n");
+    fprintf(DebugLog,"]}\n");
 }
 

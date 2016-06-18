@@ -31,5 +31,5 @@ public:
 	Triangle * get();
     void removeTriangleContainingPoint(Vertex * a);
     
-    void printTree(int step, const char name[]);
+    void printTree(const char name[]);
 };

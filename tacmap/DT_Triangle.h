@@ -6,6 +6,8 @@
 #include "DT_Vertex.h"
 #include "DT_Vector.h"
 
+extern FILE * DebugLog;
+
 class Triangle {
 private:
 	int pts;
@@ -158,34 +160,34 @@ public:
     }
     
     void print() {
-        fprintf(stdout, "{'addr':'0x%0lx', 'valid': %d, ",
+        fprintf(DebugLog, "{'addr':'0x%0lx', 'valid': %d, ",
                 (unsigned long)this,
                 isValid());
         
-        fprintf(stdout,"'triangle': [");
+        fprintf(DebugLog,"'triangle': [");
         for (int d = 0; d < 3; d++) {
             if (nullptr != data[d])
-                fprintf(stdout, "%s", data[d]->str().c_str());
+                fprintf(DebugLog, "%s", data[d]->str().c_str());
             else
-                fprintf(stdout, "None");
+                fprintf(DebugLog, "None");
             
             if (d < 2)
-                fprintf(stdout,", ");
+                fprintf(DebugLog,", ");
         }
-        fprintf(stdout,"], ");
+        fprintf(DebugLog,"], ");
         
-        fprintf(stdout, "'children': [");
+        fprintf(DebugLog, "'children': [");
         for (int j = 0; j < 3; j++) {
             Triangle * c = getChild(j);
             if (nullptr == c)
-                fprintf(stdout, "None");
+                fprintf(DebugLog, "None");
             else
-                fprintf(stdout, "'0x%0lx'", (unsigned long)c);
+                fprintf(DebugLog, "'0x%0lx'", (unsigned long)c);
             
             if (j < 2)
-                fprintf(stdout,", ");
+                fprintf(DebugLog,", ");
         }
-        fprintf(stdout, "]}");
+        fprintf(DebugLog, "]}");
     }
     
     friend bool isContained(Triangle * t, Vertex * p);

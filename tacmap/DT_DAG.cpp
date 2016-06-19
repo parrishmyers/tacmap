@@ -196,15 +196,20 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
         Triangle * b = findTriangleContainingPoint(p,false);
         assert(nullptr != b);
         assert(a != b);
-        if (nullptr != DebugLog)
-            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'edge', 'orig': ['0x%0lx', '0x%0lx'], ",
-                    (unsigned long)a,
-                    (unsigned long)b);
+        if (nullptr != DebugLog) {
+            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'edge', 'orig': [");
+            a->print();
+            fprintf(DebugLog,", ");
+            b->print();
+            fprintf(DebugLog,"], ");
+        }
         divideOnEdge(a, b, p);
     } else {
-        if (nullptr != DebugLog)
-            fprintf(DebugLog,"{'step': 'divide', 'data' : {'type': 'interior', 'orig': ['0x%0lx', None], ",
-                    (unsigned long)a);
+        if (nullptr != DebugLog) {
+            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'interior', 'orig': ");
+            a->print();
+            fprintf(DebugLog,", ");
+        }
         divideOnInterior(a, p);
     }
     
@@ -213,7 +218,7 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
     for (int i = 0; i < 4; i++) {
         if (nullptr != splitList[i]) {
             if (nullptr != DebugLog)
-                fprintf(DebugLog,"'0x%lx'", (unsigned long)splitList[i]);
+                splitList[i]->print();
         } else {
             if (nullptr != DebugLog)
                 fprintf(DebugLog,"None");

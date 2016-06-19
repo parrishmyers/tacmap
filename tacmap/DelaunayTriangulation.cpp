@@ -92,8 +92,5 @@ void DelaunayTriangulation::compute()
                     dag.validEdge(newT[i], p);
             }
         }
-        dag.printTree("after");
-        fprintf(DebugLog,"{'step': 'bottom', 'loop': %d}\n",i);
-        fprintf(DebugLog,"\n");
 	}
 }

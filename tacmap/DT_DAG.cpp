@@ -1,10 +1,11 @@
+#include <assert.h>
 #include <cmath>
+#include <fstream>
+
+#include <boost/format.hpp>
+
 #include "DT_DAG.h"
 #include "DT_Utils.h"
-
-#include <assert.h>
-
-extern FILE * DebugLog;
 
 //
 // DAG member functions
@@ -133,6 +134,8 @@ Triangle * DAG::findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive)
 
 void DAG::divideOnInterior(Triangle * a, Vertex * p)
 {
+    logStep("divide_interior_pre_", p);
+    
     // simple case, pr lies on interior
     // split a into a1,a2,a3
     Vertex ** v = a->getVertices();
@@ -154,11 +157,15 @@ void DAG::divideOnInterior(Triangle * a, Vertex * p)
     splitList[1] = a2;
     splitList[2] = a3;
     splitList[3] = nullptr;
+    
+    logStep("divide_interior_post_", p);
 }
 
 
 void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
 {
+    logStep("divide_edge_pre_", p);
+    
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
     Vertex * bp = nullptr;
@@ -188,6 +195,8 @@ void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
     splitList[1] = c2;
     splitList[2] = c3;
     splitList[3] = c4;
+    
+    logStep("divide_edge_post_", p);
 }
 
 Triangle ** DAG::divide(Triangle *a, Vertex *p)
@@ -196,46 +205,18 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
         Triangle * b = findTriangleContainingPoint(p,false);
         assert(nullptr != b);
         assert(a != b);
-        if (nullptr != DebugLog) {
-            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'edge', 'orig': [");
-            a->print();
-            fprintf(DebugLog,", ");
-            b->print();
-            fprintf(DebugLog,"], ");
-        }
         divideOnEdge(a, b, p);
     } else {
-        if (nullptr != DebugLog) {
-            fprintf(DebugLog,"{'step': 'divide', 'data': {'type': 'interior', 'orig': ");
-            a->print();
-            fprintf(DebugLog,", ");
-        }
         divideOnInterior(a, p);
     }
-    
-    if (nullptr != DebugLog)
-        fprintf(DebugLog,"'new': ["); //'0x%lx', '0x%lx', '0x%lx', '0x%lx']}\n",
-    for (int i = 0; i < 4; i++) {
-        if (nullptr != splitList[i]) {
-            if (nullptr != DebugLog)
-                splitList[i]->print();
-        } else {
-            if (nullptr != DebugLog)
-                fprintf(DebugLog,"None");
-        }
-        if (i < 3) {
-            if (nullptr != DebugLog)
-                fprintf(DebugLog,", ");
-        }
-    }
-    if (nullptr != DebugLog)
-        fprintf(DebugLog,"]}}\n");
     return splitList;
 }
 
 void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
                       Triangle *n[2])
 {
+    logStep("flip_pre_", pr);
+    
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
     Vertex * bp = nullptr;
@@ -256,12 +237,7 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[1]);
     b->setValid(false);
     
-    if (nullptr != DebugLog)
-        fprintf(DebugLog,"{'step':'flip', 'data': {'orig': ['0x%0lx', '0x%0lX'], 'new': ['0x%0lX', '0x%0lX']}}\n",
-                (unsigned long)a,
-                (unsigned long)b,
-                (unsigned long)n[0],
-                (unsigned long)n[1]);
+    logStep("flip_post_", pr);
 }
 
 ///
@@ -307,16 +283,24 @@ void DAG::removeTriangleContainingPoint(Vertex * a)
     }
 }
 
-void DAG::printTree(const char name[])
-{
-    fprintf(DebugLog,"{'step': 'dag', 'name': '%s', 'tree': [",name);
-    long len = tri.len();
-    for (int i = 0; i < len; i++) {
+json DAG::to_json() {
+    json j;
+    for (int i = 0; i < tri.len(); i++) {
         Triangle *a = tri[i];
-        a->print();
-        if (i < len-1)
-            fprintf(DebugLog,", ");
+        j.push_back( a->to_json() );
     }
-    fprintf(DebugLog,"]}\n");
+    return j;
 }
 
+void DAG::logStep(const char * name, Vertex * p)
+{
+    json j;
+    j["point"] = p->to_json();
+    j["length"] = tri.len();
+    j["dag"] = to_json();
+    
+    std::ofstream log;
+    log.open( str( boost::format("%s%|05d|.txt") % name % tri.len() ) );
+    log << j.dump();
+    log.close();
+}

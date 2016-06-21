@@ -66,6 +66,17 @@ int main(int argc, const char * argv[]) {
         GDALClose(poDataset);
     }
     
+    DelaunayTriangulation dt;
+    
+    //std::srand(static_cast<unsigned int>(std::time(0))); // use current time as seed for random generator
+    std::srand(static_cast<unsigned int>(3652123216145));
+    for (int i = 0; i < 100 ; i++) {
+        double x = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
+        double y = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
+        
+        dt.addPt(x, y, 0.0);
+    }
+    dt.compute();
     
     return 0;
 }

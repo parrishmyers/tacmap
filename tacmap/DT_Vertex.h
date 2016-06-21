@@ -3,6 +3,9 @@
 #include <string>
 #include "DT_Constants.h"
 
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 class Triangle;
 
@@ -22,12 +25,13 @@ public:
         data[Z] = z;
     }
     
-    std::string str() {
-        char tmp[1000];
-        sprintf(tmp, "{'addr': '0x%0lx', 'location': [%9.3lf, %9.3lf, %9.3lf]}",
-                (unsigned long)this,
-                data[X],data[Y],data[Z]);
-        return std::string(tmp);
+    json to_json() {
+        json j;
+        char addr[66];
+        snprintf(addr,66,"0x%0lx",(unsigned long)this);
+        j["addr"] = addr;
+        j["point"] = {data[0],data[1],data[2]};
+        return j;
     }
     
     double getX() { return data[X]; };

@@ -214,20 +214,3 @@ TEST_F(DelaunayTriangulationTest, TestDAGSplitOnEdge) {
     EXPECT_TRUE(child_b1->containsPoints(p,l,j) ||
                 child_b1->containsPoints(p,k,l) );
 }
-
-TEST_F(DelaunayTriangulationTest, TestAlgorithm) {
-    DelaunayTriangulation dt;
-    
-    //std::srand(static_cast<unsigned int>(std::time(0))); // use current time as seed for random generator
-    std::srand(static_cast<unsigned int>(3652123216145));
-    for (int i = 0; i < 100 ; i++) {
-        double x = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
-        double y = 180.0 * static_cast <float> (rand()) / static_cast <float> (RAND_MAX);;
-        
-        dt.addPt(x, y, 0.0);
-    }
-    
-    dt.compute();
-
-    ASSERT_TRUE(true);
-}

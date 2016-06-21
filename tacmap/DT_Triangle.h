@@ -6,6 +6,10 @@
 #include "DT_Vertex.h"
 #include "DT_Vector.h"
 
+#include "json.hpp"
+
+using json = nlohmann::json;
+
 extern FILE * DebugLog;
 
 class Triangle {
@@ -159,35 +163,27 @@ public:
         return found;
     }
     
-    void print() {
-        fprintf(DebugLog, "{'addr':'0x%0lx', 'valid': %d, ",
-                (unsigned long)this,
-                isValid());
+    json to_json() {
+        json j;
+        char addr[66];
+        snprintf(addr,66,"0x%0lx",(unsigned long)this);
         
-        fprintf(DebugLog,"'triangle': [");
-        for (int d = 0; d < 3; d++) {
-            if (nullptr != data[d])
-                fprintf(DebugLog, "%s", data[d]->str().c_str());
+        j["addr"] = addr;
+        j["valid"] = valid;
+        for (int i = 0; i < 3; i++) {
+            if (nullptr == data[i])
+                j["triangle"].push_back(nullptr);
             else
-                fprintf(DebugLog, "None");
-            
-            if (d < 2)
-                fprintf(DebugLog,", ");
+                j["triangle"].push_back(data[i]->to_json());
         }
-        fprintf(DebugLog,"], ");
-        
-        fprintf(DebugLog, "'children': [");
-        for (int j = 0; j < 3; j++) {
-            Triangle * c = getChild(j);
-            if (nullptr == c)
-                fprintf(DebugLog, "None");
-            else
-                fprintf(DebugLog, "'0x%0lx'", (unsigned long)c);
-            
-            if (j < 2)
-                fprintf(DebugLog,", ");
+        for (int i = 0; i < 3; i++) {
+            if (nullptr == child[i]) {
+                j["children"].push_back(nullptr);
+            } else {
+                j["children"].push_back(child[i]->to_json());
+            }
         }
-        fprintf(DebugLog, "]}");
+        return j;
     }
     
     friend bool isContained(Triangle * t, Vertex * p);

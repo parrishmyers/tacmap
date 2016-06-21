@@ -23,4 +23,8 @@ public:
 	void addPt(double x, double y, double z);
     Vertex * getPoint(int i);
 	void compute();
+    
+    void logStep(int loop, Vertex * p);
+    void logPoints();
+
 };

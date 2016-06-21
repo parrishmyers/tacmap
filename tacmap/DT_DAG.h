@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdlib>
-#include <tuple>
+#include <string>
 
 #include "DT_Constants.h"
 #include "DT_Vertex.h"
@@ -9,6 +9,10 @@
 #include "DT_Triangle.h"
 #include "DT_Circle.h"
 #include "DT_Pool.h"
+
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 class DAG {
 private:
@@ -31,5 +35,6 @@ public:
 	Triangle * get();
     void removeTriangleContainingPoint(Vertex * a);
     
-    void printTree(const char name[]);
+    json to_json();
+    void logStep(const char * name, Vertex * p);
 };

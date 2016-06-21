@@ -1,7 +1,9 @@
 
-#include "DelaunayTriangulation.h"
+#include <fstream>
 
-FILE * DebugLog = nullptr;
+#include <boost/format.hpp>
+
+#include "DelaunayTriangulation.h"
 
 void DelaunayTriangulation::permute()
 {
@@ -28,15 +30,10 @@ void DelaunayTriangulation::init()
 
 DelaunayTriangulation::DelaunayTriangulation() : M(0)
 {
-    DebugLog = fopen("/Users/pmyers/Projects/tacmap/scripts/run1.txt","w");
 }
 
 DelaunayTriangulation::~DelaunayTriangulation()
 {
-    if (nullptr != DebugLog) {
-        fclose(DebugLog);
-        DebugLog = nullptr;
-    }
 }
 
 void DelaunayTriangulation::addPt(double x, double y, double z = 0.0)
@@ -69,20 +66,13 @@ void DelaunayTriangulation::compute()
 	init();
 	permute();
     
-    for (int i = 0; i < pts.len(); i++) {
-        fprintf(DebugLog,"{'step': 'points', 'index': %d, 'data': %s}\n",
-                i,
-                pts[i]->str().c_str());
-    }
-    fprintf(DebugLog,"\n");
-
+    logPoints();
+    json j;
+    
 	for (int i = 0; i < pts.len(); i++) {
         Vertex * p = getPoint(i);
 
-        fprintf(DebugLog,"{'step': 'top', 'loop': %d, 'point': '0x%0lx'}\n",
-                i,
-                (unsigned long)p);
-        dag.printTree("before");
+        logStep(i, p);
         
         Triangle * t = dag.findTriangleContainingPoint(p);
         if (nullptr != t) {
@@ -93,4 +83,29 @@ void DelaunayTriangulation::compute()
             }
         }
 	}
+}
+
+void DelaunayTriangulation::logStep(int loop, Vertex * p)
+{
+    json j;
+    j["loop"] = loop;
+    j["point"] = p->to_json();
+    j["dag"] = dag.len();
+
+    std::ofstream log;
+    log.open (str(boost::format("steps%05d.txt") % dag.len()));
+    log << j.dump();
+    log.close();
+}
+
+void DelaunayTriangulation::logPoints()
+{
+    std::ofstream log;
+    log.open ("points.txt");
+    json j;
+    for (int i = 0; i < pts.len(); i++) {
+        j.push_back( pts[i]->to_json() );
+    }
+    log << j.dump();
+    log.close();
 }

@@ -16,6 +16,10 @@
 #include "DT_Constants.h"
 #include "DT_Vertex.h"
 
+#include "json.hpp"
+
+using json = nlohmann::json;
+
 class Vector {
 private:
     Vertex data[2];
@@ -37,11 +41,14 @@ public:
         return data;
     }
     
-    std::string str() {
-        std::string s = "Vector[";
-        s += data[0].str() + " => ";
-        s += data[1].str() + "]";
-        return s;
+    json to_json() {
+        json j;
+        char addr[66];
+        snprintf(addr,66,"0x%0lx",(unsigned long)this);
+        j["addr"] = addr;
+        j["data"].push_back(data[0].to_json());
+        j["data"].push_back(data[1].to_json());
+        return j;
     }
     
     bool onEdge(Vertex * pr) {

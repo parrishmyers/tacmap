@@ -134,7 +134,7 @@ Triangle * DAG::findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive)
 
 void DAG::divideOnInterior(Triangle * a, Vertex * p)
 {
-    logStep("divide_interior_pre_", p);
+    logStep("divide_interior", "pre", p);
     
     // simple case, pr lies on interior
     // split a into a1,a2,a3
@@ -158,13 +158,13 @@ void DAG::divideOnInterior(Triangle * a, Vertex * p)
     splitList[2] = a3;
     splitList[3] = nullptr;
     
-    logStep("divide_interior_post_", p);
+    logStep("divide_interior", "post", p);
 }
 
 
 void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
 {
-    logStep("divide_edge_pre_", p);
+    logStep("divide_edge", "pre", p);
     
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
@@ -196,7 +196,7 @@ void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
     splitList[2] = c3;
     splitList[3] = c4;
     
-    logStep("divide_edge_post_", p);
+    logStep("divide_edge", "post", p);
 }
 
 Triangle ** DAG::divide(Triangle *a, Vertex *p)
@@ -215,7 +215,7 @@ Triangle ** DAG::divide(Triangle *a, Vertex *p)
 void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
                       Triangle *n[2])
 {
-    logStep("flip_pre_", pr);
+    logStep("flip", "pre", pr);
     
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
@@ -237,7 +237,7 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[1]);
     b->setValid(false);
     
-    logStep("flip_post_", pr);
+    logStep("flip", "post", pr);
 }
 
 ///
@@ -292,15 +292,17 @@ json DAG::to_json() {
     return j;
 }
 
-void DAG::logStep(const char * name, Vertex * p)
+void DAG::logStep(const char * name, const char * type, Vertex * p)
 {
     json j;
+    j["name"] = name;
+    j["type"] = type;
     j["point"] = p->to_json();
     j["length"] = tri.len();
     j["dag"] = to_json();
     
     std::ofstream log;
-    log.open( str( boost::format("%s%|05d|.txt") % name % tri.len() ) );
+    log.open( str( boost::format("step_%05d_%s_%s.json") % tri.len() % type % name ) );
     log << j.dump();
     log.close();
 }

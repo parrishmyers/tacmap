@@ -36,5 +36,5 @@ public:
     void removeTriangleContainingPoint(Vertex * a);
     
     json to_json();
-    void logStep(const char * name, Vertex * p);
+    void logStep(const char * name, const char * type, Vertex * p);
 };

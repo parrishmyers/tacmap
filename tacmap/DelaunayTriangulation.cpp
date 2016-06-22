@@ -93,7 +93,7 @@ void DelaunayTriangulation::logStep(int loop, Vertex * p)
     j["dag"] = dag.len();
 
     std::ofstream log;
-    log.open (str(boost::format("steps%05d.txt") % dag.len()));
+    log.open (str(boost::format("loop_%05d.json") % dag.len()));
     log << j.dump();
     log.close();
 }
@@ -101,7 +101,7 @@ void DelaunayTriangulation::logStep(int loop, Vertex * p)
 void DelaunayTriangulation::logPoints()
 {
     std::ofstream log;
-    log.open ("points.txt");
+    log.open ("points.json");
     json j;
     for (int i = 0; i < pts.len(); i++) {
         j.push_back( pts[i]->to_json() );

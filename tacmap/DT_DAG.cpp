@@ -227,11 +227,11 @@ Triangle * DAG::get()
 }
 
 
-void DAG::removeTriangleContainingPoint(Vertex * a)
+void DAG::removeTriangleContainingPoint(Vertex & a)
 {
-    findTriangleContainingPoint(a);
-    for (int i = 0; i < adjList.len; i++) {
-        adjList[i]->setValid(false);
+    for (int i = 0; i < tri.len(); i++) {
+        if (0 <= tri[i]->containsPoint(a))
+            tri[i]->setValid(false);
     }
 }
 

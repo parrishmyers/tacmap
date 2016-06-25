@@ -53,6 +53,7 @@ public:
             }
         } else {
             fprintf(stdout, "ERROR: TriangleList full\n");
+            assert(false);
         }
     }
     

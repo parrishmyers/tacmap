@@ -16,7 +16,7 @@ public:
     constexpr static const double DIST_THRESH = 0.1f;
     constexpr static const double VECT_THRESH = 0.001;
     constexpr static const int splitListSize = 4;
-    constexpr static const int adjListSize = 8;
+    constexpr static const int adjListSize = 20;
 };
 
 #endif /* DT_Constants_h */

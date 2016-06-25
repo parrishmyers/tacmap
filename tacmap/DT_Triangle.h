@@ -21,13 +21,6 @@ private:
 
 	bool valid;
 
-	void incPts() {
-		pts += 1;
-		if (pts >= 3) {
-			valid = true;
-		}
-	}
-
     bool counterClockwise(Vertex *a, Vertex *b, Vertex *c)
     {
         double det = 0.0;

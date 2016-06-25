@@ -103,9 +103,6 @@ void DelaunayTriangulation::compute()
         logStep(i, p);
         
         dag.divideOnPoint(p);
-        if (dag.len() == 23) {
-            fprintf(stdout,"%s\n",p->to_json().dump().c_str());
-        }
         TriangleList<Constants::splitListSize> copy;
         copy.copy(dag.splitList);
         for (int i = 0; i < copy.len; i++) {
@@ -113,9 +110,9 @@ void DelaunayTriangulation::compute()
             validEdge(copy[i], p);
         }
 	}
-    //dag.removeTriangleContainingPoint(&omg1);
-    //dag.removeTriangleContainingPoint(&omg2);
-    //dag.removeTriangleContainingPoint(&omg3);
+    dag.removeTriangleContainingPoint(omg1);
+    dag.removeTriangleContainingPoint(omg2);
+    dag.removeTriangleContainingPoint(omg3);
     json sol = dag.to_json();
     std::ofstream log;
     log.open ("solution.json");

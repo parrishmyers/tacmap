@@ -45,7 +45,7 @@ public:
     void flip(Triangle *a, Triangle *b, Vertex *pr,
               Triangle *n[2]);
 	Triangle * get();
-    void removeTriangleContainingPoint(Vertex * a);
+    void removeTriangleContainingPoint(Vertex & a);
     
     json to_json();
     void logStep(const char * name,

@@ -10,7 +10,6 @@
 
 using json = nlohmann::json;
 
-extern FILE * DebugLog;
 
 class Triangle {
 private:
@@ -29,6 +28,16 @@ private:
 		}
 	}
 
+    bool counterClockwise(Vertex *a, Vertex *b, Vertex *c)
+    {
+        double det = 0.0;
+        det  = (b->getX() - a->getX()) * (c->getY() - a->getY()) - (c->getX() - a->getX()) * (b->getY() - a->getY());
+        if (det > 0.0)
+            return true;
+        else
+            return false;
+    }
+    
 public:
 	Triangle() : valid(false), pts(0), nChild(0) {
         data[0] = nullptr;
@@ -46,9 +55,17 @@ public:
     
     void setVertices(Vertex * i, Vertex * j, Vertex * k) {
         assert( nullptr != i && nullptr != j && nullptr != k );
-        data[0] = i;
-        data[1] = j;
-        data[2] = k;
+        
+        if (counterClockwise(i, j, k)) {
+            data[0] = i;
+            data[1] = j;
+            data[2] = k;
+        } else {
+            data[0] = j;
+            data[1] = i;
+            data[2] = k;
+        }
+        assert(counterClockwise(data[0],data[1],data[2]));
         pts = 3;
         valid = true;
         child[0] = nullptr;
@@ -63,17 +80,17 @@ public:
     
     void getVerticesNotContainingPoint(Vertex *p, Vertex *e[2])
     {
-        Vertex **ap = getVertices();
         e[0] = nullptr;
         e[1] = nullptr;
 
-        for (int i = 0, j = 0; i < 3; i++) {
-            if (ap[i] != p) {
-                assert(j < 2);
-                e[j] = ap[i];
+        int j = 0;
+        for (int i = 0; i < 3; i++) {
+            if (data[i] != p) {
+                e[j] = data[i];
                 j += 1;
             }
         }
+        assert(j == 2);
     }
     
     bool isValid() const {
@@ -174,13 +191,13 @@ public:
             if (nullptr == data[i])
                 j["triangle"].push_back(nullptr);
             else
-                j["triangle"].push_back(data[i]->to_json());
+                j["triangle"].push_back(ADDR<Vertex *>(data[i]));
         }
         for (int i = 0; i < 3; i++) {
             if (nullptr == child[i]) {
                 j["children"].push_back(nullptr);
             } else {
-                j["children"].push_back(child[i]->to_json());
+                j["children"].push_back(ADDR<Triangle *>(child[i]));
             }
         }
         return j;

@@ -56,6 +56,34 @@ Vertex * DelaunayTriangulation::getPoint(int i)
     return pts[rPerm[i]];
 }
 
+///
+// ValidEdge(∆, pr,D(P))
+// Let ∆adj be the triangle opposite to pr and adjacent to ∆
+// if InCircle(∆adj , pr) then
+//     (* We have to make an edge flip *)
+//     flip(∆,∆adj, pr,D(P))
+//     Let ∆′ and ∆′′ be the two new triangles, recursively legalize them
+//     ValidEdge(∆′, pr,D(P))
+//     ValidEdge(∆′′, pr,D(P))
+// end if
+///
+void DelaunayTriangulation::validEdge(Triangle *a, Vertex *pr)
+{
+    TriangleList<Constants::adjListSize> copy;
+    
+    // Let ∆adj be the triangle opposite to pr and adjacent to ∆
+    dag.findAdjacentTriangle(a, pr, false);
+    copy.copy(dag.adjList);
+    if (copy.len > 1) {
+        if (inCircle(copy[1], pr)) {
+            Triangle *n[2];
+            dag.flip(copy[0],copy[1],pr,n);
+            validEdge(n[0], pr);
+            validEdge(n[1], pr);
+        }
+    }
+}
+
 void DelaunayTriangulation::compute()
 {
 	if (pts.len() < 3) {
@@ -74,15 +102,25 @@ void DelaunayTriangulation::compute()
 
         logStep(i, p);
         
-        Triangle * t = dag.findTriangleContainingPoint(p);
-        if (nullptr != t) {
-            Triangle ** newT = dag.divide(t, p);
-            for (int i = 0; i < 4; i++) {
-                if (nullptr != newT[i])
-                    dag.validEdge(newT[i], p);
-            }
+        dag.divideOnPoint(p);
+        if (dag.len() == 23) {
+            fprintf(stdout,"%s\n",p->to_json().dump().c_str());
+        }
+        TriangleList<Constants::splitListSize> copy;
+        copy.copy(dag.splitList);
+        for (int i = 0; i < copy.len; i++) {
+            assert(true == copy[i]->isValid());
+            validEdge(copy[i], p);
         }
 	}
+    //dag.removeTriangleContainingPoint(&omg1);
+    //dag.removeTriangleContainingPoint(&omg2);
+    //dag.removeTriangleContainingPoint(&omg3);
+    json sol = dag.to_json();
+    std::ofstream log;
+    log.open ("solution.json");
+    log << sol.dump();
+    log.close();
 }
 
 void DelaunayTriangulation::logStep(int loop, Vertex * p)
@@ -103,6 +141,9 @@ void DelaunayTriangulation::logPoints()
     std::ofstream log;
     log.open ("points.json");
     json j;
+    j.push_back(omg1.to_json());
+    j.push_back(omg2.to_json());
+    j.push_back(omg3.to_json());
     for (int i = 0; i < pts.len(); i++) {
         j.push_back( pts[i]->to_json() );
     }

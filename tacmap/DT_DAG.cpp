@@ -4,20 +4,25 @@
 
 #include <boost/format.hpp>
 
-#include "DT_DAG.h"
+#include "DT_TriangleList.h"
 #include "DT_Utils.h"
+#include "DT_DAG.h"
 
 //
 // DAG member functions
 //
 
-Triangle *dfsearch(Triangle *a, Vertex *p, bool leftRecursive)
+void DAG::dfsearch(Triangle *a, Vertex *p, Vertex *e, bool leftRecursive)
 {
-    if (nullptr == a)
-        return nullptr;
-    
-    if (true == a->isValid() && isContained(a, p)) {
-        return a;
+    if (nullptr == a || nullptr == p) {
+        return;
+    } else if (true == a->isValid() && isContained(a, p)) {
+        if (nullptr == e) {
+             adjList.add(a);
+        } else {
+            if (isContained(a, e))
+                adjList.add(a);
+        }
     } else {
         int seq[3] = {0, 1, 2};
         if (!leftRecursive) {
@@ -25,61 +30,24 @@ Triangle *dfsearch(Triangle *a, Vertex *p, bool leftRecursive)
             seq[1] = 1;
             seq[2] = 0;
         }
-        Triangle * result = nullptr;
         Triangle * child = nullptr;
         
         child = a->getChild(seq[0]);
-        result = dfsearch(child,p, leftRecursive);
-        if (nullptr != result) return result;
+        dfsearch(child,p, e, leftRecursive);
         
         child = a->getChild(seq[1]);
-        result = dfsearch(child,p, leftRecursive);
-        if (nullptr != result) return result;
+        dfsearch(child,p, e, leftRecursive);
         
         child = a->getChild(seq[2]);
-        result = dfsearch(child,p, leftRecursive);
-        
-        return result;
+        dfsearch(child,p, e, leftRecursive);
     }
 }
 
-Triangle *dfsearch2(Triangle *a, Vertex *p, Vertex *e, bool leftRecursive)
-{
-    if (nullptr == a)
-        return nullptr;
-    
-    if (true == a->isValid() && isContained(a, p) && isContained(a, e)) {
-        return a;
-    } else {
-        int seq[3] = {0, 1, 2};
-        if (!leftRecursive) {
-            seq[0] = 2;
-            seq[1] = 1;
-            seq[2] = 0;
-        }
-        Triangle * result = nullptr;
-        Triangle * child = nullptr;
-        
-        child = a->getChild(seq[0]);
-        result = dfsearch2(child,p, e, leftRecursive);
-        if (nullptr != result) return result;
-        
-        child = a->getChild(seq[1]);
-        result = dfsearch2(child,p, e, leftRecursive);
-        if (nullptr != result) return result;
-        
-        child = a->getChild(seq[2]);
-        result = dfsearch2(child,p, e, leftRecursive);
-        
-        return result;
-    }
-}
-
-void findSharedEdge(Triangle *ta,
-                    Triangle *tb,
-                    Vertex **va,
-                    Vertex **vb,
-                    Vertex *ve[2])
+void DAG::findSharedEdge(Triangle *ta,
+                         Triangle *tb,
+                         Vertex **va,
+                         Vertex **vb,
+                         Vertex *ve[2])
 {
     // find the edge shared between the 2 triangles
     Vertex ** avt = ta->getVertices();
@@ -117,24 +85,28 @@ void findSharedEdge(Triangle *ta,
     ve[1] = ep[1];
 }
 
-Triangle * DAG::findTriangleContainingPoint(Vertex *p, bool leftRecursive)
+void DAG::findTriangleContainingPoint(Vertex *p, bool leftRecursive)
 {
     Triangle * head = tri[0];
-    return dfsearch(head, p, leftRecursive);
+    adjList.clear();
+    dfsearch(head, p, nullptr, leftRecursive);
 }
 
-Triangle * DAG::findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive)
+void DAG::findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive)
 {
     Vertex * ap[2];
     a->getVerticesNotContainingPoint(p, ap);
     
     Triangle * head = tri[0];
-    return dfsearch2(head, ap[0], ap[1], leftRecursive);
+    adjList.clear();
+    adjList.add(a);
+    dfsearch(head, ap[0], ap[1], leftRecursive);
 }
 
 void DAG::divideOnInterior(Triangle * a, Vertex * p)
 {
-    logStep("divide_interior", "pre", p);
+    json j;
+    logStep("divide_interior", "pre", p, j, false);
     
     // simple case, pr lies on interior
     // split a into a1,a2,a3
@@ -153,18 +125,19 @@ void DAG::divideOnInterior(Triangle * a, Vertex * p)
     a->addChild(a3);
     a->setValid(false);
     
-    splitList[0] = a1;
-    splitList[1] = a2;
-    splitList[2] = a3;
-    splitList[3] = nullptr;
-    
-    logStep("divide_interior", "post", p);
+    splitList.clear();
+    splitList.add(a1);
+    splitList.add(a2);
+    splitList.add(a3);
+
+    logStep("divide_interior", "post", p, j, true);
 }
 
 
 void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
 {
-    logStep("divide_edge", "pre", p);
+    json j;
+    logStep("divide_edge", "pre", p, j, false);
     
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
@@ -191,31 +164,35 @@ void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
     b->addChild(c4);
     b->setValid(false);
     
-    splitList[0] = c1;
-    splitList[1] = c2;
-    splitList[2] = c3;
-    splitList[3] = c4;
+    splitList.clear();
+    splitList.add(c1);
+    splitList.add(c2);
+    splitList.add(c3);
+    splitList.add(c4);
     
-    logStep("divide_edge", "post", p);
+    logStep("divide_edge", "post", p, j, true);
 }
 
-Triangle ** DAG::divide(Triangle *a, Vertex *p)
+void DAG::divideOnPoint(Vertex *p)
 {
-    if (a->onEdge(p)) {
-        Triangle * b = findTriangleContainingPoint(p,false);
-        assert(nullptr != b);
-        assert(a != b);
-        divideOnEdge(a, b, p);
-    } else {
-        divideOnInterior(a, p);
+    findTriangleContainingPoint(p);
+    if ( 0 < adjList.len && adjList.len > 2) {
+        logError("divide", "error", p);
+        exit(-1);
     }
-    return splitList;
+
+    if (2 == adjList.len) { // on edge
+        divideOnEdge(adjList[0], adjList[1], p);
+    } else { // on interior
+        divideOnInterior(adjList[0], p);
+    }
 }
 
 void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
                       Triangle *n[2])
 {
-    logStep("flip", "pre", pr);
+    json j;
+    logStep("flip", "pre", pr, j, false);
     
     Vertex * ep[2] = {nullptr,nullptr};
     Vertex * ap = nullptr;
@@ -237,32 +214,7 @@ void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
     b->addChild(n[1]);
     b->setValid(false);
     
-    logStep("flip", "post", pr);
-}
-
-///
-// ValidEdge(∆, pr,D(P))
-// Let ∆adj be the triangle opposite to pr and adjacent to ∆
-// if InCircle(∆adj , pr) then
-//     (* We have to make an edge flip *)
-//     flip(∆,∆adj, pr,D(P))
-//     Let ∆′ and ∆′′ be the two new triangles, recursively legalize them
-//     ValidEdge(∆′, pr,D(P))
-//     ValidEdge(∆′′, pr,D(P))
-// end if
-///
-void DAG::validEdge(Triangle *a, Vertex *pr)
-{
-    // Let ∆adj be the triangle opposite to pr and adjacent to ∆
-    Triangle *b = findAdjacentTriangle(a, pr, false);
-    assert( nullptr != b);
-    if (a != b) return;
-    if (inCircle(a, pr)) {
-        Triangle *n[2];
-        flip(a,b,pr,n);
-        validEdge(n[0], pr);
-        validEdge(n[1], pr);
-    }
+    logStep("flip", "post", pr, j, true);
 }
 
 Triangle * DAG::get()
@@ -277,9 +229,9 @@ Triangle * DAG::get()
 
 void DAG::removeTriangleContainingPoint(Vertex * a)
 {
-    Triangle * t = findTriangleContainingPoint(a);
-    while(t != nullptr) {
-        t->setValid(false);
+    findTriangleContainingPoint(a);
+    for (int i = 0; i < adjList.len; i++) {
+        adjList[i]->setValid(false);
     }
 }
 
@@ -292,17 +244,48 @@ json DAG::to_json() {
     return j;
 }
 
-void DAG::logStep(const char * name, const char * type, Vertex * p)
+void DAG::logStep(const char * name,
+                  const char * type,
+                  Vertex * p,
+                  json & j,
+                  bool dump_to_file)
 {
-    json j;
-    j["name"] = name;
-    j["type"] = type;
-    j["point"] = p->to_json();
-    j["length"] = tri.len();
-    j["dag"] = to_json();
+    static int len = -1;
+    json j1;
+    j1["name"] = name;
+    j1["type"] = type;
+    j1["point"] = p->to_json();
+    j1["length"] = tri.len();
+    j1["dag"] = to_json();
+    
+    j.push_back(j1);
+    
+    if (true == dump_to_file) {
+        std::ofstream log;
+        log.open( str( boost::format("step_%05d_%s_%s.json") % len % type % name ) );
+        log << j.dump();
+        log.close();
+    } else {
+        len = tri.len();
+    }
+}
+
+void DAG::logError(const char * name,
+                   const char * type,
+                   Vertex * p)
+{
+    json j1;
+    j1["name"] = name;
+    j1["type"] = type;
+    j1["point"] = p->to_json();
+    j1["length"] = tri.len();
+    j1["dag"] = to_json();
+    for (int i = 0; i < adjList.len; i++) {
+        j1["error"].push_back(adjList[i]->to_json());
+    }
     
     std::ofstream log;
     log.open( str( boost::format("step_%05d_%s_%s.json") % tri.len() % type % name ) );
-    log << j.dump();
+    log << j1.dump();
     log.close();
 }

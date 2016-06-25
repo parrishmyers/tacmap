@@ -44,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D968DBE31D1EDC7200F9F5B2 /* DT_TriangleList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DT_TriangleList.h; sourceTree = "<group>"; };
 		D998A8D61CFFC3F400F09E45 /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = ThirdParty/googletest/libgtest_main.a; sourceTree = "<group>"; };
 		D998A8D71CFFC3F400F09E45 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ThirdParty/googletest/libgtest.a; sourceTree = "<group>"; };
 		D9C864211CFC9998007EF874 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = /opt/homebrew/Cellar/boost/1.58.0/lib/libboost_filesystem.dylib; sourceTree = "<absolute>"; };
@@ -118,6 +119,7 @@
 				D9E0B9F51CF9F9380091133E /* DT_Constants.h */,
 				D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */,
 				D9E0B9F71CF9F9380091133E /* DT_DAG.h */,
+				D968DBE31D1EDC7200F9F5B2 /* DT_TriangleList.h */,
 				D9E0B9F81CF9F9380091133E /* DT_Pool.h */,
 				D9E0B9F91CF9F9380091133E /* DT_Triangle.h */,
 				D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */,

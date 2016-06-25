@@ -22,6 +22,7 @@ public:
 	~DelaunayTriangulation();
 	void addPt(double x, double y, double z);
     Vertex * getPoint(int i);
+    void validEdge(Triangle *a, Vertex *pr);
 	void compute();
     
     void logStep(int loop, Vertex * p);

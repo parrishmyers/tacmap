@@ -7,7 +7,14 @@
 
 using json = nlohmann::json;
 
-class Triangle;
+template<typename T>
+std::string ADDR(T address)
+{
+    unsigned long address_ = (unsigned long)address;
+    char tmp[66];
+    snprintf(tmp,66,"0x%0lx",address_);
+    return std::string(tmp);
+}
 
 class Vertex {
 public:
@@ -27,9 +34,7 @@ public:
     
     json to_json() {
         json j;
-        char addr[66];
-        snprintf(addr,66,"0x%0lx",(unsigned long)this);
-        j["addr"] = addr;
+        j["addr"] = ADDR<Vertex *>(this);
         j["point"] = {data[0],data[1],data[2]};
         return j;
     }

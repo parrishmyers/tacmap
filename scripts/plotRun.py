@@ -144,7 +144,6 @@ for file in os.listdir(PATH):
             fh.close()
             genDag("triangulation", dag)
             plotFrames("triangulation",POINTS,None,dag)
-            break;
 
 STEP_KEYS = STEP.keys()
 STEP_KEYS.sort()

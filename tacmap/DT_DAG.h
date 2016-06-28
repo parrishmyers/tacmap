@@ -26,8 +26,6 @@ private:
                         Vertex **vb,
                         Vertex *ve[2]);
 
-    void divideOnInterior(Triangle * a, Vertex * pr);
-    void divideOnEdge(Triangle * a, Triangle * b, Vertex * p);
 
 public:
     TriangleList<Constants::splitListSize> splitList;
@@ -41,7 +39,8 @@ public:
     
     void findTriangleContainingPoint(Vertex *p, bool leftRecursive=true);
     void findAdjacentTriangle(Triangle *a, Vertex *p, bool leftRecursive=true);
-    void divideOnPoint(Vertex *p);
+    void divideOnInterior(Triangle * a, Vertex * pr);
+    void divideOnEdge(Triangle * a, Triangle * b, Vertex * p);
     void flip(Triangle *a, Triangle *b, Vertex *pr,
               Triangle *n[2]);
 	Triangle * get();

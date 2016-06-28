@@ -173,21 +173,6 @@ void DAG::divideOnEdge(Triangle * a, Triangle * b, Vertex * p)
     logStep("divide_edge", "post", p, j, true);
 }
 
-void DAG::divideOnPoint(Vertex *p)
-{
-    findTriangleContainingPoint(p);
-    if ( 0 < adjList.len && adjList.len > 2) {
-        logError("divide", "error", p);
-        exit(-1);
-    }
-
-    if (2 == adjList.len) { // on edge
-        divideOnEdge(adjList[0], adjList[1], p);
-    } else { // on interior
-        divideOnInterior(adjList[0], p);
-    }
-}
-
 void DAG::flip(Triangle *a, Triangle *b, Vertex *pr,
                       Triangle *n[2])
 {

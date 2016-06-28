@@ -10,6 +10,9 @@
 #define Circle_h
 
 #include <stdio.h>
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 class Circle {
 public:
@@ -37,6 +40,22 @@ public:
     
     void printIt(FILE *fh) {
         fprintf(fh,"%f, %f, %f", data[X], data[Y], data[R]);
+    }
+    
+    bool pointInside(double x, double y) {
+        double diff_x = x - data[X];
+        double diff_y = y - data[Y];
+        double dist = std::sqrt( diff_x * diff_x + diff_y * diff_y );
+        if (dist <= data[R])
+            return true;
+        else
+            return false;
+    }
+    
+    json to_json() {
+        json j;
+        j["circle"] = { data[X], data[Y], data[R] };
+        return j;
     }
 };
 

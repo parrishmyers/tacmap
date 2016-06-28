@@ -4,6 +4,7 @@
 #include <boost/format.hpp>
 
 #include "DelaunayTriangulation.h"
+#include "DT_Circle.h"
 
 void DelaunayTriangulation::permute()
 {
@@ -75,7 +76,20 @@ void DelaunayTriangulation::validEdge(Triangle *a, Vertex *pr)
     dag.findAdjacentTriangle(a, pr, false);
     copy.copy(dag.adjList);
     if (copy.len > 1) {
-        if (inCircle(copy[1], pr)) {
+        
+        Vertex ** points = copy[1]->getVertices();
+        Circle c = circleForPoints(points[0], points[1], points[2]);
+        bool answer1 = c.pointInside(pr->getX(), pr->getY());
+        bool answer2 = inCircle(copy[1], pr);
+        
+        if (answer1 != answer2) {
+            fprintf(stdout, "WARNING: inCircle produced wrong answer.\n");
+            fprintf(stdout, "\t%s\n", c.to_json().dump().c_str());
+            fprintf(stdout, "\t%s\n", a->to_json().dump().c_str());
+            fprintf(stdout, "\t%s\n", pr->to_json().dump().c_str());
+        }
+        
+        if (answer1) {
             Triangle *n[2];
             dag.flip(copy[0],copy[1],pr,n);
             validEdge(n[0], pr);
@@ -102,7 +116,14 @@ void DelaunayTriangulation::compute()
 
         logStep(i, p);
         
-        dag.divideOnPoint(p);
+        dag.findTriangleContainingPoint(p);
+        if (2 == dag.adjList.len) { // on edge
+            dag.divideOnEdge(dag.adjList[0], dag.adjList[1], p);
+        } else { // on interior
+            dag.divideOnInterior(dag.adjList[0], p);
+        }
+        
+        
         TriangleList<Constants::splitListSize> copy;
         copy.copy(dag.splitList);
         for (int i = 0; i < copy.len; i++) {
@@ -110,6 +131,10 @@ void DelaunayTriangulation::compute()
             validEdge(copy[i], p);
         }
 	}
+    
+    //
+    // removing all triangles with the initial fake points added to DAG.
+    //
     dag.removeTriangleContainingPoint(omg1);
     dag.removeTriangleContainingPoint(omg2);
     dag.removeTriangleContainingPoint(omg3);

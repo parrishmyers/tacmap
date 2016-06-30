@@ -4,8 +4,6 @@
 
 #include <boost/format.hpp>
 
-#include "DT_TriangleList.h"
-#include "DT_Utils.h"
 #include "DT_DAG.h"
 
 //

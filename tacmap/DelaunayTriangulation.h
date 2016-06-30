@@ -2,9 +2,8 @@
 
 #include <cstdlib>
 
-#include "DT_Constants.h"
-#include "DT_Utils.h"
 #include "DT_DAG.h"
+#include "DT_Pool.h"
 
 class DelaunayTriangulation {
 private:
@@ -27,5 +26,6 @@ public:
     
     void logStep(int loop, Vertex * p);
     void logPoints();
-
+    
+    
 };

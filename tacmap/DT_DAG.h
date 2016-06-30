@@ -3,13 +3,10 @@
 #include <cstdlib>
 #include <string>
 
-#include "DT_Constants.h"
-#include "DT_Vertex.h"
-#include "DT_Vector.h"
+#include "DT_Pool.h"
 #include "DT_Triangle.h"
 #include "DT_TriangleList.h"
-#include "DT_Circle.h"
-#include "DT_Pool.h"
+
 
 #include "json.hpp"
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdio.h>
-#include "DT_Triangle.h"
 
 template<class T, int Size>
 class Pool {

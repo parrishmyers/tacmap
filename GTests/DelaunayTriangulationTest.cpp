@@ -91,44 +91,42 @@ TEST_F(DelaunayTriangulationTest, TestOnEdge) {
     Vertex n1(5.0,10.0);
     Vertex n2(10.0,16.0);
     
-    Vector n(&n1,&n2);
-    
     Vertex a = Vertex(3.0,17.0);
-    EXPECT_EQ( 0, n.onEdge(&a) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&a) );
     
     Vertex b = Vertex(7.0,17.0);
-    EXPECT_EQ( 0, n.onEdge(&b) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&b) );
     
     Vertex c = Vertex(13.0,17.0);
-    EXPECT_EQ( 0, n.onEdge(&c) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&c) );
     
     Vertex d = Vertex(3.0,12.0);
-    EXPECT_EQ( 0, n.onEdge(&d) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&d) );
     
     Vertex e = Vertex(6.0,12.0);
-    EXPECT_EQ( 0, n.onEdge(&e) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&e) );
     
     Vertex f = Vertex(11.0,12.0);
-    EXPECT_EQ( 0, n.onEdge(&f) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&f) );
     
     Vertex g = Vertex(4.0,9.0);
-    EXPECT_EQ( 0, n.onEdge(&g) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&g) );
     
     Vertex h = Vertex(7.0,9.0);
-    EXPECT_EQ( 0, n.onEdge(&h) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&h) );
     
     Vertex i = Vertex(14.0,9.0);
-    EXPECT_EQ( 0, n.onEdge(&i) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&i) );
     
     Vertex j = Vertex(14.0,9.0);
-    EXPECT_EQ( 0, n.onEdge(&j) );
+    EXPECT_EQ( 0, onEdge(&n1,&n2,&j) );
 
     double tn = 0.5;
     double nx = 0.1 + n1.getX() + tn * (n2.getX() - n1.getX());
     double ny = n1.getY() + tn * (n2.getY() - n1.getY());
     
     Vertex k = Vertex(nx,ny);
-    EXPECT_EQ( 1, n.onEdge(&k) );
+    EXPECT_EQ( 1, onEdge(&n1,&n2,&k) );
 }
 
 TEST_F(DelaunayTriangulationTest, TestPool) {

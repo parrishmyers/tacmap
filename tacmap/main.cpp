@@ -18,6 +18,9 @@
 static const std::string DataPath = {"/Users/pmyers/Projects/tacmap/data/50n000e_20101117_gmted_bln075.tif"};
 
 int main(int argc, const char * argv[]) {
+    /*
+     * disable for now
+     *
     boost::filesystem::path p = boost::filesystem::current_path();
     
     fprintf(stdout,"cwp := %s\n",p.c_str());
@@ -65,6 +68,7 @@ int main(int argc, const char * argv[]) {
         
         GDALClose(poDataset);
     }
+     */
     
     DelaunayTriangulation dt;
     

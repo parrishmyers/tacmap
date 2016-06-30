@@ -14,11 +14,9 @@
 		D9E0B9EC1CF9F8C80091133E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9EB1CF9F8C80091133E /* main.cpp */; };
 		D9E0B9FE1CF9F9380091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
 		D9E0B9FF1CF9F9380091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
-		D9E0BA001CF9F9380091133E /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */; };
 		D9E0BA2C1CFA3D1D0091133E /* DelaunayTriangulationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */; };
 		D9E0BA2D1CFA3D220091133E /* DelaunayTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F21CF9F9380091133E /* DelaunayTriangulation.cpp */; };
 		D9E0BA2E1CFA3D270091133E /* DT_DAG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9F61CF9F9380091133E /* DT_DAG.cpp */; };
-		D9E0BA2F1CFA3D2C0091133E /* DT_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */; };
 		D9E0BA311CFB54C00091133E /* libgdal.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9E0BA301CFB54C00091133E /* libgdal.1.dylib */; };
 /* End PBXBuildFile section */
 
@@ -59,9 +57,6 @@
 		D9E0B9F71CF9F9380091133E /* DT_DAG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_DAG.h; sourceTree = "<group>"; };
 		D9E0B9F81CF9F9380091133E /* DT_Pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Pool.h; sourceTree = "<group>"; };
 		D9E0B9F91CF9F9380091133E /* DT_Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Triangle.h; sourceTree = "<group>"; };
-		D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DT_Utils.cpp; sourceTree = "<group>"; };
-		D9E0B9FB1CF9F9380091133E /* DT_Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Utils.h; sourceTree = "<group>"; };
-		D9E0B9FC1CF9F9380091133E /* DT_Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vector.h; sourceTree = "<group>"; };
 		D9E0B9FD1CF9F9380091133E /* DT_Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DT_Vertex.h; sourceTree = "<group>"; };
 		D9E0BA041CF9FBBB0091133E /* DelaunayTriangulationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DelaunayTriangulationTest.cpp; path = GTests/DelaunayTriangulationTest.cpp; sourceTree = "<group>"; };
 		D9E0BA231CFA3CC50091133E /* DelaunayTriangulationTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DelaunayTriangulationTest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,9 +117,6 @@
 				D968DBE31D1EDC7200F9F5B2 /* DT_TriangleList.h */,
 				D9E0B9F81CF9F9380091133E /* DT_Pool.h */,
 				D9E0B9F91CF9F9380091133E /* DT_Triangle.h */,
-				D9E0B9FA1CF9F9380091133E /* DT_Utils.cpp */,
-				D9E0B9FB1CF9F9380091133E /* DT_Utils.h */,
-				D9E0B9FC1CF9F9380091133E /* DT_Vector.h */,
 				D9E0B9FD1CF9F9380091133E /* DT_Vertex.h */,
 				D9E0B9EB1CF9F8C80091133E /* main.cpp */,
 			);
@@ -229,7 +221,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9E0B9FF1CF9F9380091133E /* DT_DAG.cpp in Sources */,
-				D9E0BA001CF9F9380091133E /* DT_Utils.cpp in Sources */,
 				D9E0B9FE1CF9F9380091133E /* DelaunayTriangulation.cpp in Sources */,
 				D9E0B9EC1CF9F8C80091133E /* main.cpp in Sources */,
 			);
@@ -239,7 +230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9E0BA2F1CFA3D2C0091133E /* DT_Utils.cpp in Sources */,
 				D9E0BA2D1CFA3D220091133E /* DelaunayTriangulation.cpp in Sources */,
 				D9E0BA2C1CFA3D1D0091133E /* DelaunayTriangulationTest.cpp in Sources */,
 				D9E0BA2E1CFA3D270091133E /* DT_DAG.cpp in Sources */,

@@ -4,7 +4,6 @@
 #include <string>
 
 #include "DT_Vertex.h"
-#include "DT_Vector.h"
 
 #include "json.hpp"
 
@@ -154,23 +153,6 @@ public:
         }
         
         return (answer[0] == true && answer[1] == true && answer[2] == true) ? true : false;
-    }
-    
-    bool onEdge(Vertex * a) {
-        Vector ij = Vector(data[0],data[1]);
-        Vector jk = Vector(data[1],data[2]);
-        Vector ki = Vector(data[2],data[0]);
-        
-        bool found = false;
-        
-        if (ij.onEdge(a)) {
-            found = true;
-        } else if (jk.onEdge(a)) {
-            found = true;
-        } else if (ki.onEdge(a)) {
-            found = true;
-        }
-        return found;
     }
     
     json to_json() {

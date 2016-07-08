@@ -65,7 +65,7 @@ class Triangle:
 
     def __str__(self):
         str1 = '{} = '.format(self.name)
-        str1 += '{}, {}, {}'.format(self.points[0], self.points[1], self.points[2])
+        str1 += '{}, {}, {} :'.format(self.points[0], self.points[1], self.points[2])
         str1 += ' {}, {}, {}'.format(self.children[0], self.children[1], self.children[2])
         return str1
 
@@ -141,7 +141,6 @@ def plot_triangles(DAG):
 
 
 def plot_circle(t):
-    #print(t)
     c_x,c_y,c_r = circle_for_points(t.points[0],
                                     t.points[1],
                                     t.points[2])
@@ -170,7 +169,6 @@ def match_b_in_a(a,b):
             if ap == bp:
                 av[ai] = bi
                 bv[bi] = ai
-    #print av,bv
     p1 = -1
     p2 = -1
     c = []
@@ -184,6 +182,29 @@ def match_b_in_a(a,b):
             
     return c, p1, p2
 
+
+def is_adjacent(a, pr, b):
+    c = 0
+    pra = -1
+    prb = -1
+    for i in xrange(0,3):
+        if a.points[i] == pr:
+            pra = i
+            continue
+        for j in xrange(0,3):
+            if b.points[j] == pr:
+                prb = j
+                break
+            elif b.points[j] == a.points[i]:
+                c += 1
+    if prb < 0 and c == 2 and pra >= 0:
+        return True
+    else:
+        return False
+
+
+def divide_on_edge(a, pr, DAG, log):
+    pass
 
 def divide_on_interior(a, pr, DAG, log):
     next_num = len(DAG)    

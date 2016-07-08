@@ -213,7 +213,7 @@ void DelaunayTriangulation::addPt(double x, double y, double z = 0.0)
 
 Vertex * DelaunayTriangulation::getPoint(int i)
 {
-    int rPerm_[10] = {2, 9, 8, 7, 4, 3, 1, 0, 6, 5};
+    int rPerm_[10] = {2, 9, 7, 8, 4, 1, 3, 0, 6, 5};
     return pts[rPerm_[i]];
     //return pts[rPerm[i]];
 }

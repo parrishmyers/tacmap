@@ -18,9 +18,6 @@
 static const std::string DataPath = {"/Users/pmyers/Projects/tacmap/data/50n000e_20101117_gmted_bln075.tif"};
 
 int main(int argc, const char * argv[]) {
-    /*
-     * disable for now
-     *
     boost::filesystem::path p = boost::filesystem::current_path();
     
     fprintf(stdout,"cwp := %s\n",p.c_str());
@@ -66,9 +63,23 @@ int main(int argc, const char * argv[]) {
                GDALGetColorInterpretationName(
                poBand->GetColorInterpretation()) );
         
+        FILE * patch = fopen("patch.txt","w");
+        for (int i = 0; i < poBand->GetYSize(); i++) {
+            int nXSize = poBand->GetXSize();
+            float *pafScanline = (float *) CPLMalloc(sizeof(float)*nXSize);
+            poBand->RasterIO( GF_Read, 0, 0, nXSize, 1, pafScanline, nXSize, 1, GDT_Float32, 0, 0);
+            
+            for (int j = 0; j < nXSize; j++) {
+                fprintf(patch, "%f  ", pafScanline[j]);
+            }
+            fprintf(patch, "\n");
+            
+            CPLFree(pafScanline);
+        }
+        fclose(patch);
+        
         GDALClose(poDataset);
     }
-     */
     
     DelaunayTriangulation dt;
     
@@ -82,6 +93,8 @@ int main(int argc, const char * argv[]) {
         dt.addPt(x, y, 0.0);
     }
     */
+    
+    /*
     dt.addPt(-0.02222276248244826, -0.4979727817680433,  0.0);
     dt.addPt(-0.4285431913366012,   0.4745826469497594,  0.0);
     dt.addPt( 0.3105396575392593,   0.2400179190933871,  0.0);
@@ -94,6 +107,7 @@ int main(int argc, const char * argv[]) {
     dt.addPt( 0.309330780347186,   -0.07758103877080702, 0.0);
     
     dt.compute();
+     */
     
     return 0;
 }

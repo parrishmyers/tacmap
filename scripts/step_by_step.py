@@ -28,7 +28,7 @@ class Vertices:
             x = self.point_[i+3][0]
             y = self.point_[i+3][1]
         except:
-            print '{} out of range 0..{}'.format(i,len(self.point_))
+            print ('{} out of range 0..{}'.format(i,len(self.point_)))
         return x, y
 
     def permute(self):
@@ -183,24 +183,24 @@ def match_b_in_a(a,b):
     return c, p1, p2
 
 
-def is_adjacent(a, pr, b):
-    c = 0
-    pra = -1
-    prb = -1
-    for i in xrange(0,3):
-        if a.points[i] == pr:
-            pra = i
-            continue
-        for j in xrange(0,3):
-            if b.points[j] == pr:
-                prb = j
-                break
-            elif b.points[j] == a.points[i]:
-                c += 1
-    if prb < 0 and c == 2 and pra >= 0:
-        return True
-    else:
-        return False
+# def is_adjacent(a, pr, b):
+#     c = 0
+#     pra = -1
+#     prb = -1
+#     for i in range(0,3):
+#         if a.points[i] == pr:
+#             pra = i
+#             continue
+#         for j in range(0,3):
+#             if b.points[j] == pr:
+#                 prb = j
+#                 break
+#             elif b.points[j] == a.points[i]:
+#                 c += 1
+#     if prb < 0 and c == 2 and pra >= 0:
+#         return True
+#     else:
+#         return False
 
 
 def divide_on_edge(a, pr, DAG, log):
@@ -216,7 +216,7 @@ def divide_on_interior(a, pr, DAG, log):
         name1,
         name2,
         name3)
-    print msg
+    print (msg)
     log.write(msg)
     log.write('\n')
 
@@ -236,11 +236,11 @@ def divide_on_interior(a, pr, DAG, log):
     return t1, t2, t3
 
 def flip(a,b,DAG,log):
-    next_num = len(DAG)    
+    next_num = len(DAG)
     name1 = '{}'.format(next_num)
     name2 = '{}'.format(next_num+1)
     msg = 'flip: {}, {} -> {}, {}'.format(a.name,b.name,name1,name2)
-    print msg
+    print (msg)
     log.write(msg)
     log.write('\n')
     
@@ -285,11 +285,11 @@ def is_adjacent(a, pr, b):
     c = 0
     pra = -1
     prb = -1
-    for i in xrange(0,3):
+    for i in range(0,3):
         if a.points[i] == pr:
             pra = i
             continue
-        for j in xrange(0,3):
+        for j in range(0,3):
             if b.points[j] == pr:
                 prb = j
                 break
@@ -372,7 +372,7 @@ for pr in Points.order:
     valid_edge(t2, pr, DAG, log)
     valid_edge(t3, pr, DAG, log)
 
-print 'Done'
+print ('Done')
 for t in DAG:
     if t.points[0] < 0 or t.points[1] < 0 or t.points[2] < 0:
         t.valid = False
